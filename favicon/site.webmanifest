@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "My Assets",
+  "short_name": "My Assets",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

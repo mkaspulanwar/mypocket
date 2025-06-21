@@ -1006,7 +1006,7 @@ body {
         const ASSETS = [
             {
                 name: "Bitcoin",
-                ticker: "BTC • Digital Asset",
+                ticker: "BTC • Portable Digital Asset",
                 icon: "/icon/bitcoin.png",
                 balance: () => `${(CONFIG.BITCOIN_STRATEGY.FREE_SATS + CONFIG.BITCOIN_STRATEGY.COLLATERAL_SATS).toLocaleString('id-ID')} sats`,
                 invested: () => (CONFIG.BITCOIN_STRATEGY.FREE_SATS + CONFIG.BITCOIN_STRATEGY.COLLATERAL_SATS) * CONFIG.BTC.AVG_PRICE / CONFIG.BTC.SATS_TO_BTC,
@@ -1019,6 +1019,17 @@ body {
                 name: "Bank Central Asia",
                 ticker: "IDX: BBCA • Banking",
                 icon: "/icon/bbca.png",
+                balance: () => "0 shares",
+                invested: () => 0,
+                avgPrice: () => 1,
+                currentPrice: () => 1,
+                currency: "IDR",
+                type: "liquid"
+            },
+            {
+                name: "Chandra Daya Investasi",
+                ticker: "IDX: CDIA • Infrastructures ",
+                icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
                 balance: () => "0 shares",
                 invested: () => 0,
                 avgPrice: () => 1,

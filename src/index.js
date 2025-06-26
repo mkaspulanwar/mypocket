@@ -17,16 +17,6 @@
                 INTEREST_RATE: 5.76,
                 BTC_YIELD_RATE: 0.27
             },
-            STOCKS: {
-                BBCA: {
-                    PRICE_IDR: 10000, // Default price, will be updated
-                    SYMBOL: 'BBCA.JK'
-                },
-                BRK_B: {
-                    PRICE_USD: 485.41, // Default price, will be updated
-                    SYMBOL: 'BRK-B'
-                }
-            },
             LAST_UPDATE: {
                 DATE: "04 Mei",
                 YEAR: "2025",
@@ -41,7 +31,7 @@
                 "rgba(156, 39, 176, 0.9)",
                 "rgba(233, 30, 99, 0.9)"
             ],
-            API_REFRESH_INTERVAL: 300000 // 5 minutes (to avoid rate limiting)
+            API_REFRESH_INTERVAL: 60000 // 1 minute
         };
 
         // Asset Data
@@ -58,20 +48,20 @@
                 type: "liquid"
             },
             {
-                name: "Bank Central Asia",
-                ticker: "IDX: BBCA • Banking",
-                icon: "/icon/bbca.png",
+                name: "Chandra Daya Investasi",
+                ticker: "IDX: CDIA • Infrastructures ",
+                icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
                 balance: () => "0 shares",
                 invested: () => 0,
-                avgPrice: () => CONFIG.STOCKS.BBCA.PRICE_IDR,
-                currentPrice: () => CONFIG.STOCKS.BBCA.PRICE_IDR,
+                avgPrice: () => 1,
+                currentPrice: () => 1,
                 currency: "IDR",
                 type: "liquid"
             },
             {
-                name: "Chandra Daya Investasi",
-                ticker: "IDX: CDIA • Infrastructures ",
-                icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
+                name: "Bank Central Asia",
+                ticker: "IDX: BBCA • Banking",
+                icon: "/icon/bbca.png",
                 balance: () => "0 shares",
                 invested: () => 0,
                 avgPrice: () => 1,
@@ -108,7 +98,7 @@
                 balance: () => "0.0093 shares",
                 invested: () => 0,
                 avgPrice: () => 485.41,
-                currentPrice: () => CONFIG.STOCKS.BRK_B.PRICE_USD,
+                currentPrice: () => 485.41,
                 currency: "USD",
                 type: "liquid"
             }
@@ -148,28 +138,7 @@
             
             getReturnClass: (returnPercent) => returnPercent > 0 ? 'positive' : returnPercent < 0 ? 'negative' : '',
             
-            getReturnSign: (returnPercent) => returnPercent > 0 ? '+ ' : returnPercent < 0 ? '- ' : '',
-            
-            getCurrentDateTime: () => {
-                const now = new Date();
-                const months = [
-                    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-                ];
-                
-                const day = now.getDate();
-                const month = months[now.getMonth()];
-                const year = now.getFullYear();
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                
-                return {
-                    DATE: `${day} ${month}`,
-                    YEAR: year.toString(),
-                    TIME: `${hours}:${minutes}`,
-                    TIMEZONE: "Wita"
-                };
-            }
+            getReturnSign: (returnPercent) => returnPercent > 0 ? '+ ' : returnPercent < 0 ? '- ' : ''
         };
 
         // Asset Calculator
@@ -333,7 +302,7 @@
                                 callbacks: {
                                     label: (context) => {
                                         const value = context.raw;
-                                        const percentage = ((value / totalValue) * 100).toFixed(1);
+                                                                                const percentage = ((value / totalValue) * 100).toFixed(1);
                                         return `${context.label}: ${Utils.formatCurrency(value)} (${percentage}%)`;
                                     }
                                 }
@@ -370,7 +339,6 @@
 
         // API Handler
         const APIHandler = {
-            // Fetch Bitcoin price from CoinGecko
             fetchBitcoinPrice: async () => {
                 try {
                     const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,idr');
@@ -391,128 +359,16 @@
                         }
                         
                         console.log(`Bitcoin price updated: ${CONFIG.BTC.PRICE_IDR} IDR`);
+                        Dashboard.initialize();
                         return true;
                     }
                     
                     throw new Error("Invalid response from CoinGecko API");
                 } catch (error) {
                     console.error("Error fetching Bitcoin price:", error);
+                    Dashboard.initialize(); // Use default values
                     return false;
                 }
-            },
-
-            // Fetch Indonesian stock prices (BBCA) from Yahoo Finance
-            fetchIDXStockPrices: async () => {
-                try {
-                    // Using Yahoo Finance API for Indonesian stocks
-                    const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${CONFIG.STOCKS.BBCA.SYMBOL}`);
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    
-                    const data = await response.json();
-                    
-                    if (data?.chart?.result?.[0]?.meta?.regularMarketPrice) {
-                        const price = data.chart.result[0].meta.regularMarketPrice;
-                        CONFIG.STOCKS.BBCA.PRICE_IDR = price;
-                        console.log(`BBCA price updated: ${price} IDR`);
-                        return true;
-                    }
-                    
-                    throw new Error("Invalid response from Yahoo Finance API for BBCA");
-                } catch (error) {
-                    console.error("Error fetching BBCA price:", error);
-                    return false;
-                }
-            },
-
-            // Fetch US stock prices (BRK.B) from Yahoo Finance
-            fetchUSStockPrices: async () => {
-                try {
-                    const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${CONFIG.STOCKS.BRK_B.SYMBOL}`);
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    
-                    const data = await response.json();
-                    
-                    if (data?.chart?.result?.[0]?.meta?.regularMarketPrice) {
-                        const price = data.chart.result[0].meta.regularMarketPrice;
-                        CONFIG.STOCKS.BRK_B.PRICE_USD = price;
-                        console.log(`BRK.B price updated: $${price} USD`);
-                        return true;
-                    }
-                    
-                    throw new Error("Invalid response from Yahoo Finance API for BRK.B");
-                } catch (error) {
-                    console.error("Error fetching BRK.B price:", error);
-                    return false;
-                }
-            },
-
-            // Alternative API using Alpha Vantage (free tier)
-            fetchStockPricesAlternative: async () => {
-                try {
-                    // Using free API from finhub.io (no API key required for basic use)
-                    const promises = [
-                        fetch('https://finnhub.io/api/v1/quote?symbol=BRK.B&token=demo'),
-                        // Note: Indonesian stocks might not be available on free APIs
-                        // You might need to use a different approach for BBCA
-                    ];
-
-                    const responses = await Promise.allSettled(promises);
-                    
-                    // Handle BRK.B response
-                    if (responses[0].status === 'fulfilled' && responses[0].value.ok) {
-                        const brkData = await responses[0].value.json();
-                        if (brkData.c) { // 'c' is current price
-                            CONFIG.STOCKS.BRK_B.PRICE_USD = brkData.c;
-                            console.log(`BRK.B price updated (alternative): $${brkData.c} USD`);
-                        }
-                    }
-
-                    return true;
-                } catch (error) {
-                    console.error("Error fetching alternative stock prices:", error);
-                    return false;
-                }
-            },
-
-            // Update timestamp
-            updateTimestamp: () => {
-                const currentDateTime = Utils.getCurrentDateTime();
-                CONFIG.LAST_UPDATE = currentDateTime;
-                console.log(`Timestamp updated: ${currentDateTime.DATE} ${currentDateTime.YEAR}, ${currentDateTime.TIME} ${currentDateTime.TIMEZONE}`);
-            },
-
-            // Fetch all prices
-            fetchAllPrices: async () => {
-                console.log("Fetching all prices...");
-                
-                const results = await Promise.allSettled([
-                    APIHandler.fetchBitcoinPrice(),
-                    APIHandler.fetchIDXStockPrices(),
-                    APIHandler.fetchUSStockPrices()
-                ]);
-
-                // If Yahoo Finance fails, try alternative API
-                if (results[2].status === 'rejected' || !results[2].value) {
-                    console.log("Trying alternative API for US stocks...");
-                    await APIHandler.fetchStockPricesAlternative();
-                }
-
-                // Update timestamp after fetching prices
-                APIHandler.updateTimestamp();
-                
-                // Refresh dashboard
-                Dashboard.initialize();
-                
-                const successCount = results.filter(result => result.status === 'fulfilled' && result.value).length;
-                console.log(`Price update completed. ${successCount}/${results.length} APIs successful.`);
-                
-                return successCount > 0;
             }
         };
 
@@ -533,21 +389,13 @@
 
             setupAutoRefresh: () => {
                 // Initial fetch
-                APIHandler.fetchAllPrices();
+                APIHandler.fetchBitcoinPrice();
                 
-                // Set up interval for auto-refresh
+                // Set up interval
                 setInterval(() => {
-                    console.log("Auto-refreshing all prices...");
-                    APIHandler.fetchAllPrices();
+                    console.log("Auto-refreshing Bitcoin price");
+                    APIHandler.fetchBitcoinPrice();
                 }, CONFIG.API_REFRESH_INTERVAL);
-                
-                console.log(`Auto-refresh setup complete. Will update every ${CONFIG.API_REFRESH_INTERVAL / 1000 / 60} minutes.`);
-            },
-
-            // Manual refresh function (can be called from UI)
-            manualRefresh: () => {
-                console.log("Manual refresh triggered");
-                APIHandler.fetchAllPrices();
             }
         };
 
@@ -557,6 +405,3 @@
             Dashboard.initialize();
             Dashboard.setupAutoRefresh();
         });
-
-        // Expose manual refresh function to global scope for potential UI button
-        window.refreshPrices = Dashboard.manualRefresh;

@@ -11,17 +11,15 @@
             },
             BITCOIN_STRATEGY: {
                 FREE_SATS: 0,
-                COLLATERAL_SATS: 110031,
-                USDT_BORROWED: 55.35,
+                COLLATERAL_SATS: 120000,
+                USDT_BORROWED: 40.4,
                 LIQUIDATION_LTV: 91,
                 INTEREST_RATE: 5.76,
                 BTC_YIELD_RATE: 0.27
             },
             LAST_UPDATE: {
-                DATE: "04 Mei",
-                YEAR: "2025",
-                TIME: "17:00",
-                TIMEZONE: "Wita"
+                timestamp: null, // Will be set automatically
+                timezone: 'Asia/Makassar' // WITA timezone
             },
             CHART_COLORS: [
                 "rgba(255, 152, 0, 0.9)",
@@ -138,7 +136,33 @@
             
             getReturnClass: (returnPercent) => returnPercent > 0 ? 'positive' : returnPercent < 0 ? 'negative' : '',
             
-            getReturnSign: (returnPercent) => returnPercent > 0 ? '+ ' : returnPercent < 0 ? '- ' : ''
+            getReturnSign: (returnPercent) => returnPercent > 0 ? '+ ' : returnPercent < 0 ? '- ' : '',
+
+            // New utility function for formatting timestamps
+            formatTimestamp: (timestamp) => {
+                if (!timestamp) return 'Belum diperbarui';
+                
+                const date = new Date(timestamp);
+                const options = {
+                    timeZone: CONFIG.LAST_UPDATE.timezone,
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                };
+                
+                const formatter = new Intl.DateTimeFormat('id-ID', options);
+                const formattedDate = formatter.format(date);
+                
+                return `${formattedDate} WITA`;
+            },
+
+            // Update last update timestamp
+            updateLastUpdateTimestamp: () => {
+                CONFIG.LAST_UPDATE.timestamp = new Date().getTime();
+            }
         };
 
         // Asset Calculator
@@ -302,7 +326,7 @@
                                 callbacks: {
                                     label: (context) => {
                                         const value = context.raw;
-                                                                                const percentage = ((value / totalValue) * 100).toFixed(1);
+                                        const percentage = ((value / totalValue) * 100).toFixed(1);
                                         return `${context.label}: ${Utils.formatCurrency(value)} (${percentage}%)`;
                                     }
                                 }
@@ -328,10 +352,11 @@
                 }
             },
 
+            // Updated displayLastUpdate function
             displayLastUpdate: () => {
                 const lastUpdateElement = document.getElementById('lastUpdate');
                 if (lastUpdateElement) {
-                    const formattedUpdate = `${CONFIG.LAST_UPDATE.DATE} ${CONFIG.LAST_UPDATE.YEAR}, Pukul ${CONFIG.LAST_UPDATE.TIME} ${CONFIG.LAST_UPDATE.TIMEZONE}`;
+                    const formattedUpdate = Utils.formatTimestamp(CONFIG.LAST_UPDATE.timestamp);
                     lastUpdateElement.innerHTML = `Last Update: <br> ${formattedUpdate}`;
                 }
             }
@@ -358,7 +383,10 @@
                             CONFIG.EXCHANGE_RATES.USDT_TO_IDR = usdToIdrRate;
                         }
                         
-                        console.log(`Bitcoin price updated: ${CONFIG.BTC.PRICE_IDR} IDR`);
+                        // Update timestamp after successful API call
+                        Utils.updateLastUpdateTimestamp();
+                        
+                        console.log(`Bitcoin price updated: ${CONFIG.BTC.PRICE_IDR} IDR at ${new Date().toLocaleString('id-ID', { timeZone: CONFIG.LAST_UPDATE.timezone })}`);
                         Dashboard.initialize();
                         return true;
                     }
@@ -366,6 +394,8 @@
                     throw new Error("Invalid response from CoinGecko API");
                 } catch (error) {
                     console.error("Error fetching Bitcoin price:", error);
+                    // Still update timestamp even on error to show last attempt
+                    Utils.updateLastUpdateTimestamp();
                     Dashboard.initialize(); // Use default values
                     return false;
                 }
@@ -388,7 +418,8 @@
             },
 
             setupAutoRefresh: () => {
-                // Initial fetch
+                // Initial timestamp and fetch
+                Utils.updateLastUpdateTimestamp();
                 APIHandler.fetchBitcoinPrice();
                 
                 // Set up interval

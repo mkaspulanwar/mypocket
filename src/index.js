@@ -100,7 +100,7 @@ const ASSETS = [
         name: "Berkshire Hathaway Inc",
         ticker: "NYSE: BRK.B • Conglomerate",
         icon: "/icon/brk.png",
-        balance: () => "0.0093 shares",
+        balance: () => "0 shares",
         invested: () => 0,
         avgPrice: () => 485.41,
         currentPrice: () => 485.41,

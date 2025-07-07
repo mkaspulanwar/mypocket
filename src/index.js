@@ -12,7 +12,7 @@ const CONFIG = {
     BITCOIN_STRATEGY: {
         FREE_SATS: 0,
         COLLATERAL_SATS: 60000,
-        USDT_BORROWED: 40.4,
+        USDT_BORROWED: 34.8,
         LIQUIDATION_LTV: 91,
         INTEREST_RATE: 5.76,
         BTC_YIELD_RATE: 0.27

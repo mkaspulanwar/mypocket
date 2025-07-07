@@ -285,12 +285,18 @@ const UIRenderer = {
             totalPnL: document.getElementById('totalPnL'),
             totalDebt: document.getElementById('totalDebt'),
             totalPercentage: document.getElementById('totalPercentage'),
-            currentLTV: document.getElementById('currentLTV')
+            currentLTV: document.getElementById('currentLTV'),
+            usdRateDisplay: document.getElementById('usdRateDisplay') // New element for USD rate display
         };
 
         if (elements.totalEquity) elements.totalEquity.textContent = Utils.formatCurrency(totalMarketValue);
         if (elements.usdEquivalent) elements.usdEquivalent.textContent = `≈ ${Utils.formatUSD(usdEquivalent)}`;
         if (elements.totalDebt) elements.totalDebt.textContent = Utils.formatCurrency(debtAmount);
+
+        // Update USD rate display if element exists
+        if (elements.usdRateDisplay) {
+            elements.usdRateDisplay.textContent = `1 USD = ${Utils.formatCurrency(CONFIG.EXCHANGE_RATES.USD_TO_IDR)}`;
+        }
 
         if (elements.totalPnL) {
             elements.totalPnL.textContent = `${totalPnL >= 0 ? '+ ' : '- '}${Utils.formatCurrency(Math.abs(totalPnL))}`;
@@ -389,8 +395,34 @@ const UIRenderer = {
     }
 };
 
-// API Handler
+// API Handler - Enhanced with USD rate fetching
 const APIHandler = {
+    // Fetch USD to IDR exchange rate
+    fetchUSDRate: async () => {
+        try {
+            const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data?.rates?.IDR) {
+                CONFIG.EXCHANGE_RATES.USD_TO_IDR = data.rates.IDR;
+                CONFIG.EXCHANGE_RATES.USDT_TO_IDR = data.rates.IDR;
+                console.log(`USD rate updated: 1 USD = ${CONFIG.EXCHANGE_RATES.USD_TO_IDR} IDR`);
+                return true;
+            }
+            
+            throw new Error("Invalid response from Exchange Rate API");
+        } catch (error) {
+            console.error("Error fetching USD rate:", error);
+            return false;
+        }
+    },
+
+    // Enhanced Bitcoin price fetching with USD rate as fallback
     fetchBitcoinPrice: async () => {
         try {
             const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,idr');
@@ -404,26 +436,55 @@ const APIHandler = {
             if (data?.bitcoin) {
                 CONFIG.BTC.PRICE_IDR = data.bitcoin.idr;
                 
+                // Update USD rate from Bitcoin API if available
                 if (data.bitcoin.usd) {
                     const usdToIdrRate = data.bitcoin.idr / data.bitcoin.usd;
                     CONFIG.EXCHANGE_RATES.USD_TO_IDR = usdToIdrRate;
                     CONFIG.EXCHANGE_RATES.USDT_TO_IDR = usdToIdrRate;
+                    console.log(`USD rate updated from Bitcoin API: 1 USD = ${CONFIG.EXCHANGE_RATES.USD_TO_IDR} IDR`);
                 }
                 
-                // Update timestamp after successful API call
-                Utils.updateLastUpdateTimestamp();
-                
-                console.log(`Bitcoin price updated: ${CONFIG.BTC.PRICE_IDR} IDR at ${new Date().toLocaleString('id-ID', { timeZone: CONFIG.LAST_UPDATE.timezone })}`);
-                Dashboard.initialize();
+                console.log(`Bitcoin price updated: ${CONFIG.BTC.PRICE_IDR} IDR`);
                 return true;
             }
             
             throw new Error("Invalid response from CoinGecko API");
         } catch (error) {
             console.error("Error fetching Bitcoin price:", error);
-            // Still update timestamp even on error to show last attempt
+            return false;
+        }
+    },
+
+    // Combined API fetch function
+    fetchAllPrices: async () => {
+        try {
+            console.log("Fetching all market data...");
+            
+            // Try to fetch both Bitcoin and USD rates
+            const [bitcoinSuccess, usdSuccess] = await Promise.all([
+                APIHandler.fetchBitcoinPrice(),
+                APIHandler.fetchUSDRate()
+            ]);
+            
+            // Update timestamp after API calls
             Utils.updateLastUpdateTimestamp();
-            Dashboard.initialize(); // Use default values
+            
+            // Refresh dashboard
+            Dashboard.initialize();
+            
+            const successMessage = [];
+            if (bitcoinSuccess) successMessage.push("Bitcoin price");
+            if (usdSuccess) successMessage.push("USD rate");
+            
+            if (successMessage.length > 0) {
+                console.log(`Successfully updated: ${successMessage.join(", ")} at ${new Date().toLocaleString('id-ID', { timeZone: CONFIG.LAST_UPDATE.timezone })}`);
+            }
+            
+            return bitcoinSuccess || usdSuccess;
+        } catch (error) {
+            console.error("Error fetching market data:", error);
+            Utils.updateLastUpdateTimestamp();
+            Dashboard.initialize();
             return false;
         }
     }
@@ -447,12 +508,12 @@ const Dashboard = {
     setupAutoRefresh: () => {
         // Initial timestamp and fetch
         Utils.updateLastUpdateTimestamp();
-        APIHandler.fetchBitcoinPrice();
+        APIHandler.fetchAllPrices();
         
-        // Set up interval
+        // Set up interval for auto-refresh every 1 minute
         setInterval(() => {
-            console.log("Auto-refreshing Bitcoin price");
-            APIHandler.fetchBitcoinPrice();
+            console.log("Auto-refreshing market data (Bitcoin price & USD rate)");
+            APIHandler.fetchAllPrices();
         }, CONFIG.API_REFRESH_INTERVAL);
     }
 };

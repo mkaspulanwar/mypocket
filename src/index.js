@@ -12,7 +12,7 @@ const CONFIG = {
     BITCOIN_STRATEGY: {
         FREE_SATS: 0,
         COLLATERAL_SATS: 60000,
-        USDT_BORROWED: 34.8,
+        USDT_BORROWED: 39.8,
         LIQUIDATION_LTV: 91,
         INTEREST_RATE: 5.76,
         BTC_YIELD_RATE: 0.27
@@ -34,93 +34,46 @@ const CONFIG = {
     API_REFRESH_INTERVAL: 60000 // 1 minute
 };
 
-// Asset Data
+// Asset Data - Simplified structure
 const ASSETS = [
     {
         name: "Bitcoin",
         ticker: "BTC • Portable Digital Asset",
         icon: "/icon/bitcoin.png",
-        balance: () => `${(CONFIG.BITCOIN_STRATEGY.FREE_SATS + CONFIG.BITCOIN_STRATEGY.COLLATERAL_SATS).toLocaleString('id-ID')} sats`,
-        invested: () => (CONFIG.BITCOIN_STRATEGY.FREE_SATS + CONFIG.BITCOIN_STRATEGY.COLLATERAL_SATS) * CONFIG.BTC.AVG_PRICE / CONFIG.BTC.SATS_TO_BTC,
-        avgPrice: () => CONFIG.BTC.AVG_PRICE,
-        currentPrice: () => CONFIG.BTC.PRICE_IDR,
+        type: "bitcoin",
         currency: "IDR",
-        type: "liquid",
-        showInTable: true
+        showInTable: true,
+        // Bitcoin-specific data
+        freeSats: 0,
+        collateralSats: 60000,
+        avgPrice: 1166095031
     },
     {
         name: "Chandra Daya Investasi",
-        ticker: "IDX: CDIA • Infrastructures ",
+        ticker: "IDX: CDIA • Infrastructures",
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
-        balance: () => "0 shares",
-        invested: () => 0,
-        avgPrice: () => 1,
-        currentPrice: () => 1,
+        type: "stock",
         currency: "IDR",
-        type: "liquid",
-        showInTable: true
+        showInTable: true,
+        // Stock data
+        shares: 1100,
+        avgPrice: 190,
+        currentPrice: 190
     },
-    {
-        name: "Bank Central Asia",
-        ticker: "IDX: BBCA • Banking",
-        icon: "/icon/bbca.png",
-        balance: () => "0 shares",
-        invested: () => 0,
-        avgPrice: () => 1,
-        currentPrice: () => 1,
-        currency: "IDR",
-        type: "liquid",
-        showInTable: true
-    },
-    {
-        name: "Paxos Gold",
-        ticker: "PAXG • Tokenized Gold",
-        icon: "/icon/paxg.png",
-        balance: () => "0 troy",
-        invested: () => 0,
-        avgPrice: () => 1,
-        currentPrice: () => 1,
-        currency: "IDR",
-        type: "liquid",
-        showInTable: true
-    },
-    {
-        name: "MicroStrategy Inc",
-        ticker: "NASDAQ: MSTR • Technology",
-        icon: "/icon/mstr.png",
-        balance: () => "0 shares",
-        invested: () => 0,
-        avgPrice: () => 203.77,
-        currentPrice: () => 400,
-        currency: "USD",
-        type: "liquid",
-        showInTable: true
-    },
+    
     {
         name: "Berkshire Hathaway Inc",
         ticker: "NYSE: BRK.B • Conglomerate",
         icon: "/icon/brk.png",
-        balance: () => "0 shares",
-        invested: () => 0,
-        avgPrice: () => 485.41,
-        currentPrice: () => 485.41,
+        type: "stock",
         currency: "USD",
-        type: "liquid",
-        showInTable: true
+        showInTable: true,
+        // Stock data
+        shares: 0,
+        avgPrice: 485.41,
+        currentPrice: 485.41
     },
-    // USDT asset - only for donut chart, not for table
-    {
-        name: "Tether USD",
-        ticker: "USDT • Stablecoin",
-        icon: "/icon/usdt.png",
-        balance: () => `${CONFIG.BITCOIN_STRATEGY.USDT_BORROWED.toLocaleString('id-ID')} USDT`,
-        invested: () => CONFIG.BITCOIN_STRATEGY.USDT_BORROWED * CONFIG.EXCHANGE_RATES.USDT_TO_IDR,
-        avgPrice: () => CONFIG.EXCHANGE_RATES.USDT_TO_IDR,
-        currentPrice: () => CONFIG.EXCHANGE_RATES.USDT_TO_IDR,
-        currency: "IDR",
-        type: "liquid",
-        showInTable: false // Hide from table
-    }
+
 ];
 
 // Utility Functions
@@ -131,10 +84,62 @@ const Utils = {
     
     convertIDRtoUSD: (idrAmount) => idrAmount / CONFIG.EXCHANGE_RATES.USD_TO_IDR,
     
-    parseShareQuantity: (shareStr) => {
-        if (!shareStr) return 0;
-        const match = shareStr.match(/(\d+\.?\d*)/);
-        return match ? parseFloat(match[1]) : 0;
+    formatNumber: (number) => {
+        return number.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 3 });
+    },
+    
+    formatBalance: (asset) => {
+        switch (asset.type) {
+            case "bitcoin":
+                const totalSats = asset.freeSats + asset.collateralSats;
+                return `${Utils.formatNumber(totalSats)} sats`;
+            case "stock":
+                return `${Utils.formatNumber(asset.shares)} shares`;
+            case "commodity":
+                return `${Utils.formatNumber(asset.quantity)} ${asset.unit}`;
+            case "stablecoin":
+                return `${Utils.formatNumber(asset.quantity)} ${asset.unit}`;
+            default:
+                return "0";
+        }
+    },
+    
+    calculateInvested: (asset) => {
+        switch (asset.type) {
+            case "bitcoin":
+                const totalSats = asset.freeSats + asset.collateralSats;
+                return totalSats * asset.avgPrice / CONFIG.BTC.SATS_TO_BTC;
+            case "stock":
+                if (asset.currency === "USD") {
+                    return asset.shares * asset.avgPrice * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
+                }
+                return asset.shares * asset.avgPrice;
+            case "commodity":
+                return asset.quantity * asset.avgPrice;
+            case "stablecoin":
+                return asset.quantity * asset.avgPrice;
+            default:
+                return 0;
+        }
+    },
+    
+    calculateMarketValue: (asset) => {
+        switch (asset.type) {
+            case "bitcoin":
+                const totalSats = asset.freeSats + asset.collateralSats;
+                return totalSats * CONFIG.BTC.PRICE_IDR / CONFIG.BTC.SATS_TO_BTC;
+            case "stock":
+                if (asset.currency === "USD") {
+                    return asset.shares * asset.currentPrice * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
+                }
+                return asset.shares * asset.currentPrice;
+            case "commodity":
+                return asset.quantity * asset.currentPrice;
+            case "stablecoin":
+                return asset.quantity * CONFIG.EXCHANGE_RATES.USDT_TO_IDR;
+            default:
+                return 0;
+        }
     },
     
     formatPriceDisplay: (asset, isAvgPrice = false) => {
@@ -142,7 +147,7 @@ const Utils = {
         
         if (asset.currency === "USD") {
             return Utils.formatUSD(price);
-        } else if (asset.name === "Bitcoin") {
+        } else if (asset.type === "bitcoin") {
             return `Rp. ${(price / 1000000).toLocaleString('id-ID', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
@@ -159,7 +164,6 @@ const Utils = {
     
     getReturnSign: (returnPercent) => returnPercent > 0 ? '+ ' : returnPercent < 0 ? '- ' : '',
 
-    // New utility function for formatting timestamps
     formatTimestamp: (timestamp) => {
         if (!timestamp) return 'Belum diperbarui';
         
@@ -180,7 +184,6 @@ const Utils = {
         return `${formattedDate} WITA`;
     },
 
-    // Update last update timestamp
     updateLastUpdateTimestamp: () => {
         CONFIG.LAST_UPDATE.timestamp = new Date().getTime();
     }
@@ -190,32 +193,19 @@ const Utils = {
 const AssetCalculator = {
     calculateAssetValues: () => {
         return ASSETS.map(asset => {
-            const balance = typeof asset.balance === 'function' ? asset.balance() : asset.balance;
-            const invested = typeof asset.invested === 'function' ? asset.invested() : asset.invested;
-            const avgPrice = typeof asset.avgPrice === 'function' ? asset.avgPrice() : asset.avgPrice;
-            const currentPrice = typeof asset.currentPrice === 'function' ? asset.currentPrice() : asset.currentPrice;
-            
-            let marketValue;
-            let actualInvested = invested;
-
-            if (asset.currency === "USD") {
-                const shares = Utils.parseShareQuantity(balance);
-                actualInvested = shares * avgPrice * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
-                marketValue = shares * currentPrice * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
-            } else {
-                marketValue = actualInvested * (currentPrice / avgPrice);
-            }
-
-            const returnPercent = actualInvested > 0 ? ((marketValue - actualInvested) / actualInvested) * 100 : 0;
+            const balance = Utils.formatBalance(asset);
+            const invested = Utils.calculateInvested(asset);
+            const marketValue = Utils.calculateMarketValue(asset);
+            const returnPercent = invested > 0 ? ((marketValue - invested) / invested) * 100 : 0;
 
             return {
                 name: asset.name,
                 ticker: asset.ticker,
                 icon: asset.icon,
                 balance,
-                invested: Math.round(actualInvested),
-                avgPrice,
-                currentPrice,
+                invested: Math.round(invested),
+                avgPrice: asset.avgPrice,
+                currentPrice: asset.type === "bitcoin" ? CONFIG.BTC.PRICE_IDR : asset.currentPrice,
                 currency: asset.currency,
                 type: asset.type,
                 showInTable: asset.showInTable,
@@ -270,7 +260,7 @@ const UIRenderer = {
 
     updatePortfolioSummary: (calculatedAssets) => {
         // Only include assets shown in table for portfolio summary
-        const liquidAssets = calculatedAssets.filter(asset => asset.type === "liquid" && asset.showInTable);
+        const liquidAssets = calculatedAssets.filter(asset => asset.showInTable);
         const totalInvested = liquidAssets.reduce((sum, asset) => sum + asset.invested, 0);
         const totalMarketValue = liquidAssets.reduce((sum, asset) => sum + asset.marketValue, 0);
         const totalPnL = totalMarketValue - totalInvested;
@@ -286,14 +276,13 @@ const UIRenderer = {
             totalDebt: document.getElementById('totalDebt'),
             totalPercentage: document.getElementById('totalPercentage'),
             currentLTV: document.getElementById('currentLTV'),
-            usdRateDisplay: document.getElementById('usdRateDisplay') // New element for USD rate display
+            usdRateDisplay: document.getElementById('usdRateDisplay')
         };
 
         if (elements.totalEquity) elements.totalEquity.textContent = Utils.formatCurrency(totalMarketValue);
         if (elements.usdEquivalent) elements.usdEquivalent.textContent = `≈ ${Utils.formatUSD(usdEquivalent)}`;
         if (elements.totalDebt) elements.totalDebt.textContent = Utils.formatCurrency(debtAmount);
 
-        // Update USD rate display if element exists
         if (elements.usdRateDisplay) {
             elements.usdRateDisplay.textContent = `1 USD = ${Utils.formatCurrency(CONFIG.EXCHANGE_RATES.USD_TO_IDR)}`;
         }
@@ -323,14 +312,24 @@ const UIRenderer = {
 
         const ctx = canvas.getContext('2d');
         
-        // Include ALL liquid assets (including USDT) for donut chart
+        // Include table assets + USDT debt for donut chart
         const filteredAssets = calculatedAssets
-            .filter(asset => asset.type === "liquid" && asset.marketValue > 0)
+            .filter(asset => asset.marketValue > 0)
             .sort((a, b) => b.marketValue - a.marketValue);
 
-        const totalValue = filteredAssets.reduce((sum, asset) => sum + asset.marketValue, 0);
-        const data = filteredAssets.map(asset => asset.marketValue);
-        const labels = filteredAssets.map(asset => asset.name);
+        // Add USDT debt as virtual asset for donut chart
+        const usdtDebt = {
+            name: "Tether USD",
+            marketValue: CONFIG.BITCOIN_STRATEGY.USDT_BORROWED * CONFIG.EXCHANGE_RATES.USDT_TO_IDR
+        };
+        
+        // Combine assets with USDT debt and sort by market value (descending)
+        const assetsWithUsdt = [...filteredAssets, usdtDebt]
+            .sort((a, b) => b.marketValue - a.marketValue);
+        
+        const totalValue = assetsWithUsdt.reduce((sum, asset) => sum + asset.marketValue, 0);
+        const data = assetsWithUsdt.map(asset => asset.marketValue);
+        const labels = assetsWithUsdt.map(asset => asset.name);
 
         // Destroy existing chart
         if (window.donutChartInstance) {
@@ -368,11 +367,11 @@ const UIRenderer = {
             }
         });
 
-        // Update legend
+        // Update legend with sorted data
         const legendContainer = document.getElementById('donutLegend');
         if (legendContainer) {
             legendContainer.innerHTML = '';
-            filteredAssets.forEach((asset, index) => {
+            assetsWithUsdt.forEach((asset, index) => {
                 const percentage = ((asset.marketValue / totalValue) * 100).toFixed(1);
                 const legendItem = document.createElement('div');
                 legendItem.className = 'legend-item';
@@ -385,7 +384,6 @@ const UIRenderer = {
         }
     },
 
-    // Updated displayLastUpdate function
     displayLastUpdate: () => {
         const lastUpdateElement = document.getElementById('lastUpdate');
         if (lastUpdateElement) {
@@ -395,9 +393,8 @@ const UIRenderer = {
     }
 };
 
-// API Handler - Enhanced with USD rate fetching
+// API Handler
 const APIHandler = {
-    // Fetch USD to IDR exchange rate
     fetchUSDRate: async () => {
         try {
             const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
@@ -422,7 +419,6 @@ const APIHandler = {
         }
     },
 
-    // Enhanced Bitcoin price fetching with USD rate as fallback
     fetchBitcoinPrice: async () => {
         try {
             const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,idr');
@@ -436,7 +432,6 @@ const APIHandler = {
             if (data?.bitcoin) {
                 CONFIG.BTC.PRICE_IDR = data.bitcoin.idr;
                 
-                // Update USD rate from Bitcoin API if available
                 if (data.bitcoin.usd) {
                     const usdToIdrRate = data.bitcoin.idr / data.bitcoin.usd;
                     CONFIG.EXCHANGE_RATES.USD_TO_IDR = usdToIdrRate;
@@ -455,21 +450,16 @@ const APIHandler = {
         }
     },
 
-    // Combined API fetch function
     fetchAllPrices: async () => {
         try {
             console.log("Fetching all market data...");
             
-            // Try to fetch both Bitcoin and USD rates
             const [bitcoinSuccess, usdSuccess] = await Promise.all([
                 APIHandler.fetchBitcoinPrice(),
                 APIHandler.fetchUSDRate()
             ]);
             
-            // Update timestamp after API calls
             Utils.updateLastUpdateTimestamp();
-            
-            // Refresh dashboard
             Dashboard.initialize();
             
             const successMessage = [];
@@ -506,11 +496,9 @@ const Dashboard = {
     },
 
     setupAutoRefresh: () => {
-        // Initial timestamp and fetch
         Utils.updateLastUpdateTimestamp();
         APIHandler.fetchAllPrices();
         
-        // Set up interval for auto-refresh every 1 minute
         setInterval(() => {
             console.log("Auto-refreshing market data (Bitcoin price & USD rate)");
             APIHandler.fetchAllPrices();

@@ -38,7 +38,7 @@ const CONFIG = {
 const ASSETS = [
     {
         name: "Bitcoin",
-        ticker: "BTC • Portable Digital Asset",
+        ticker: "BTC • Portable  Asset",
         icon: "/icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
@@ -49,8 +49,8 @@ const ASSETS = [
         avgPrice: 1166095031
     },
     {
-        name: "Chandra Daya Investasi",
-        ticker: "IDX: CDIA • Infrastructures",
+        name: "IDX: CDIA",
+        ticker: "PT Chandra Daya Investasi Tbk",
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
         type: "stock",
         currency: "IDR",
@@ -62,8 +62,8 @@ const ASSETS = [
     },
     
     {
-        name: "Berkshire Hathaway Inc",
-        ticker: "NYSE: BRK.B • Conglomerate",
+        name: "NYSE: BRK.B",
+        ticker: "Berkshire Hathaway Inc",
         icon: "/icon/brk.png",
         type: "stock",
         currency: "USD",

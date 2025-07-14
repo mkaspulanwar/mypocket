@@ -58,7 +58,7 @@ const ASSETS = [
         // Stock data
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 400
+        currentPrice: 625
     },
     
     {

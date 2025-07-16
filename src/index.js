@@ -28,17 +28,16 @@ const CONFIG = {
         "rgba(0, 191, 165, 0.9)",
         "rgba(255, 193, 7, 0.9)",
         "rgba(156, 39, 176, 0.9)",
-        "rgba(233, 30, 99, 0.9)",
-        "rgba(76, 175, 80, 0.9)" // Additional color for USDT
+        "rgba(121, 85, 72, 0.9)" // Additional color for RDN Cash
     ],
     API_REFRESH_INTERVAL: 60000 // 1 minute
 };
 
-// Asset Data - Simplified structure
+// Asset Data - Fixed structure with correct ticker and name positions
 const ASSETS = [
     {
-        name: "Bitcoin",
-        ticker: "BTC • Portable  Asset",
+        ticker: "Bitcoin",
+        name: "BTC • Portable Asset",
         icon: "/icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
@@ -49,8 +48,8 @@ const ASSETS = [
         avgPrice: 1166095031
     },
     {
-        name: "IDX: CDIA",
-        ticker: "PT Chandra Daya Investasi Tbk",
+        ticker: "IDX: CDIA",
+        name: "PT Chandra Daya Investasi Tbk",
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
         type: "stock",
         currency: "IDR",
@@ -61,20 +60,20 @@ const ASSETS = [
         currentPrice: 780
     },
     {
-        name: "IDX: JSMR",
-        ticker: "PT Jasa Marga Tbk",
+        ticker: "IDX: JSMR",
+        name: "PT Jasa Marga (persero) Tbk",
         icon: "https://assets.stockbit.com/logos/companies/JSMR.png",
         type: "stock",
         currency: "IDR",
         showInTable: true,
         // Stock data
         shares: 100,
-        avgPrice: 3660,
-        currentPrice: 3660
+        avgPrice: 3665,
+        currentPrice: 3650
     },
     {
-        name: "IDX: EMTK",
-        ticker: "PT Elang Mahkota Teknologi Tbk",
+        ticker: "IDX: EMTK",
+        name: "PT Elang Mahkota Teknologi Tbk",
         icon: "https://assets.stockbit.com/logos/companies/EMTK.png",
         type: "stock",
         currency: "IDR",
@@ -85,8 +84,8 @@ const ASSETS = [
         currentPrice: 510
     },
     {
-        name: "IDX: COIN",
-        ticker: "PT. Indokripto Koin Semesta Tbk",
+        ticker: "IDX: COIN",
+        name: "PT. Indokripto Koin Semesta Tbk",
         icon: "https://assets.stockbit.com/logos/companies/COIN.png?version=1750643999108901654",
         type: "stock",
         currency: "IDR",
@@ -97,8 +96,20 @@ const ASSETS = [
         currentPrice: 474
     },
     {
-        name: "NYSE: BRK.B",
-        ticker: "Berkshire Hathaway Inc",
+        ticker: "RDN: Rupiah",
+        name: "Free Cash • Liquid Asset",
+        icon: "../icon/idrt.png",
+        type: "cash",
+        currency: "IDR",
+        showInTable: true,
+        // Cash data
+        amount: 238000, 
+        avgPrice: 1, 
+        currentPrice: 1 
+    },
+    {
+        ticker: "NYSE: BRK.B",
+        name: "Berkshire Hathaway Inc",
         icon: "/icon/brk.png",
         type: "stock",
         currency: "USD",
@@ -107,8 +118,7 @@ const ASSETS = [
         shares: 0,
         avgPrice: 485.41,
         currentPrice: 485.41
-    },
-
+    }
 ];
 
 // Utility Functions
@@ -130,6 +140,8 @@ const Utils = {
                 return `${Utils.formatNumber(totalSats)} sats`;
             case "stock":
                 return `${Utils.formatNumber(asset.shares)} shares`;
+            case "cash":
+                return Utils.formatCurrency(asset.amount);
             case "commodity":
                 return `${Utils.formatNumber(asset.quantity)} ${asset.unit}`;
             case "stablecoin":
@@ -149,6 +161,8 @@ const Utils = {
                     return asset.shares * asset.avgPrice * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
                 }
                 return asset.shares * asset.avgPrice;
+            case "cash":
+                return asset.amount; // For cash, invested amount equals current amount
             case "commodity":
                 return asset.quantity * asset.avgPrice;
             case "stablecoin":
@@ -168,6 +182,8 @@ const Utils = {
                     return asset.shares * asset.currentPrice * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
                 }
                 return asset.shares * asset.currentPrice;
+            case "cash":
+                return asset.amount; // Cash always maintains its nominal value
             case "commodity":
                 return asset.quantity * asset.currentPrice;
             case "stablecoin":
@@ -178,6 +194,10 @@ const Utils = {
     },
     
     formatPriceDisplay: (asset, isAvgPrice = false) => {
+        if (asset.type === "cash") {
+            return "Rp. 1"; // Always show Rp. 1 for cash
+        }
+        
         const price = isAvgPrice ? asset.avgPrice : asset.currentPrice;
         
         if (asset.currency === "USD") {
@@ -273,11 +293,11 @@ const UIRenderer = {
             row.innerHTML = `
                 <td>
                     <span class="asset-icon">
-                        <img src="${asset.icon}" alt="${asset.name}">
+                        <img src="${asset.icon}" alt="${asset.ticker}">
                     </span>
                     <span class="asset-name">
-                        ${asset.name}
-                        <span class="asset-ticker">${asset.ticker}</span>
+                        ${asset.ticker}
+                        <span class="asset-ticker">${asset.name}</span>
                     </span>
                 </td>
                 <td>${asset.balance}</td>
@@ -354,7 +374,7 @@ const UIRenderer = {
 
         // Add USDT debt as virtual asset for donut chart
         const usdtDebt = {
-            name: "Tether USD",
+            ticker: "Tether USD",
             marketValue: CONFIG.BITCOIN_STRATEGY.USDT_BORROWED * CONFIG.EXCHANGE_RATES.USDT_TO_IDR
         };
         
@@ -364,7 +384,7 @@ const UIRenderer = {
         
         const totalValue = assetsWithUsdt.reduce((sum, asset) => sum + asset.marketValue, 0);
         const data = assetsWithUsdt.map(asset => asset.marketValue);
-        const labels = assetsWithUsdt.map(asset => asset.name);
+        const labels = assetsWithUsdt.map(asset => asset.ticker);
 
         // Destroy existing chart
         if (window.donutChartInstance) {
@@ -412,7 +432,7 @@ const UIRenderer = {
                 legendItem.className = 'legend-item';
                 legendItem.innerHTML = `
                     <div class="legend-color" style="background-color: ${CONFIG.CHART_COLORS[index % CONFIG.CHART_COLORS.length]}"></div>
-                    <div class="legend-text">${asset.name} (${percentage}%)</div>
+                    <div class="legend-text">${asset.ticker} (${percentage}%)</div>
                 `;
                 legendContainer.appendChild(legendItem);
             });

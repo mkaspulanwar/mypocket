@@ -58,9 +58,44 @@ const ASSETS = [
         // Stock data
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 625
+        currentPrice: 780
     },
-    
+    {
+        name: "IDX: JSMR",
+        ticker: "PT Jasa Marga Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/JSMR.png",
+        type: "stock",
+        currency: "IDR",
+        showInTable: true,
+        // Stock data
+        shares: 100,
+        avgPrice: 3660,
+        currentPrice: 3660
+    },
+    {
+        name: "IDX: EMTK",
+        ticker: "PT Elang Mahkota Teknologi Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/EMTK.png",
+        type: "stock",
+        currency: "IDR",
+        showInTable: true,
+        // Stock data
+        shares: 800,
+        avgPrice: 488,
+        currentPrice: 510
+    },
+    {
+        name: "IDX: COIN",
+        ticker: "PT. Indokripto Koin Semesta Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/COIN.png?version=1750643999108901654",
+        type: "stock",
+        currency: "IDR",
+        showInTable: true,
+        // Stock data
+        shares: 900,
+        avgPrice: 100,
+        currentPrice: 474
+    },
     {
         name: "NYSE: BRK.B",
         ticker: "Berkshire Hathaway Inc",

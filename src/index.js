@@ -69,7 +69,7 @@ const ASSETS = [
         // Stock data
         shares: 100,
         avgPrice: 3665,
-        currentPrice: 3650
+        currentPrice: 3660
     },
     {
         ticker: "IDX: EMTK",
@@ -81,7 +81,7 @@ const ASSETS = [
         // Stock data
         shares: 800,
         avgPrice: 488,
-        currentPrice: 540
+        currentPrice: 545
     },
     {
         ticker: "IDX: COIN",

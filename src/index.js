@@ -81,7 +81,7 @@ const ASSETS = [
         // Stock data
         shares: 800,
         avgPrice: 488,
-        currentPrice: 510
+        currentPrice: 540
     },
     {
         ticker: "IDX: COIN",

@@ -57,7 +57,7 @@ const ASSETS = [
         // Stock data
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 780
+        currentPrice: 975
     },
     {
         ticker: "IDX: JSMR",
@@ -69,7 +69,7 @@ const ASSETS = [
         // Stock data
         shares: 100,
         avgPrice: 3665,
-        currentPrice: 3660
+        currentPrice: 3670
     },
     {
         ticker: "IDX: EMTK",
@@ -81,7 +81,7 @@ const ASSETS = [
         // Stock data
         shares: 800,
         avgPrice: 488,
-        currentPrice: 545
+        currentPrice: 580
     },
     {
         ticker: "IDX: COIN",
@@ -93,7 +93,7 @@ const ASSETS = [
         // Stock data
         shares: 900,
         avgPrice: 100,
-        currentPrice: 474
+        currentPrice: 590
     },
     {
         ticker: "RDN: Rupiah",

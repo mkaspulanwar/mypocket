@@ -57,7 +57,7 @@ const ASSETS = [
         // Stock data
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 975
+        currentPrice: 1215
     },
     {
         ticker: "IDX: JSMR",
@@ -68,8 +68,8 @@ const ASSETS = [
         showInTable: true,
         // Stock data
         shares: 100,
-        avgPrice: 3665,
-        currentPrice: 3670
+        avgPrice: 3665.49,
+        currentPrice: 3570
     },
     {
         ticker: "IDX: EMTK",
@@ -80,8 +80,20 @@ const ASSETS = [
         showInTable: true,
         // Stock data
         shares: 800,
-        avgPrice: 488,
-        currentPrice: 580
+        avgPrice: 488.73,
+        currentPrice: 615
+    },
+    {
+        ticker: "IDX: SIMP",
+        name: "PT. Salim Ivomas Pratama Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/SIMP.png",
+        type: "stock",
+        currency: "IDR",
+        showInTable: true,
+        // Stock data
+        shares: 100,
+        avgPrice: 555.83,
+        currentPrice: 550
     },
     {
         ticker: "IDX: COIN",
@@ -91,9 +103,9 @@ const ASSETS = [
         currency: "IDR",
         showInTable: true,
         // Stock data
-        shares: 900,
+        shares: 800,
         avgPrice: 100,
-        currentPrice: 590
+        currentPrice: 735
     },
     {
         ticker: "RDN: Rupiah",
@@ -103,7 +115,7 @@ const ASSETS = [
         currency: "IDR",
         showInTable: true,
         // Cash data
-        amount: 238000, 
+        amount: 217733, 
         avgPrice: 1, 
         currentPrice: 1 
     },

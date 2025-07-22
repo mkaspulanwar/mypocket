@@ -57,19 +57,19 @@ const ASSETS = [
         // Stock data
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 1215
+        currentPrice: 1515
     },
     {
-        ticker: "IDX: JSMR",
-        name: "PT Jasa Marga (persero) Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/JSMR.png",
+        ticker: "IDX: ADRO",
+        name: "PT Alamtri Resources Indonesia Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/ADRO.png",
         type: "stock",
         currency: "IDR",
         showInTable: true,
         // Stock data
-        shares: 100,
-        avgPrice: 3665.49,
-        currentPrice: 3570
+        shares: 200,
+        avgPrice: 1990,
+        currentPrice: 2020
     },
     {
         ticker: "IDX: EMTK",
@@ -82,18 +82,6 @@ const ASSETS = [
         shares: 800,
         avgPrice: 488.73,
         currentPrice: 615
-    },
-    {
-        ticker: "IDX: SIMP",
-        name: "PT. Salim Ivomas Pratama Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/SIMP.png",
-        type: "stock",
-        currency: "IDR",
-        showInTable: true,
-        // Stock data
-        shares: 100,
-        avgPrice: 555.83,
-        currentPrice: 550
     },
     {
         ticker: "IDX: COIN",
@@ -115,7 +103,7 @@ const ASSETS = [
         currency: "IDR",
         showInTable: true,
         // Cash data
-        amount: 217733, 
+        amount: 263106, 
         avgPrice: 1, 
         currentPrice: 1 
     },

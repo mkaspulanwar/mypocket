@@ -60,29 +60,18 @@ const ASSETS = [
         currentPrice: 1515
     },
     {
-        ticker: "IDX: ADRO",
-        name: "PT Alamtri Resources Indonesia Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/ADRO.png",
+        ticker: "IDX: BBCA",
+        name: "PT Bank Cental Asia Tbk",
+        icon: "../icon/bbca.png",
         type: "stock",
         currency: "IDR",
         showInTable: true,
         // Stock data
-        shares: 200,
-        avgPrice: 1990,
-        currentPrice: 2020
+        shares: 100,
+        avgPrice: 8537.79,
+        currentPrice: 8500
     },
-    {
-        ticker: "IDX: EMTK",
-        name: "PT Elang Mahkota Teknologi Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/EMTK.png",
-        type: "stock",
-        currency: "IDR",
-        showInTable: true,
-        // Stock data
-        shares: 800,
-        avgPrice: 488.73,
-        currentPrice: 615
-    },
+    
     {
         ticker: "IDX: COIN",
         name: "PT. Indokripto Koin Semesta Tbk",
@@ -93,32 +82,32 @@ const ASSETS = [
         // Stock data
         shares: 800,
         avgPrice: 100,
-        currentPrice: 735
+        currentPrice: 665
     },
-    {
-        ticker: "RDN: Rupiah",
-        name: "Free Cash • Liquid Asset",
-        icon: "../icon/idrt.png",
-        type: "cash",
-        currency: "IDR",
-        showInTable: true,
-        // Cash data
-        amount: 263106, 
-        avgPrice: 1, 
-        currentPrice: 1 
-    },
-    {
-        ticker: "NYSE: BRK.B",
-        name: "Berkshire Hathaway Inc",
-        icon: "/icon/brk.png",
-        type: "stock",
-        currency: "USD",
-        showInTable: true,
-        // Stock data
-        shares: 0,
-        avgPrice: 485.41,
-        currentPrice: 485.41
-    }
+    // {
+    //     ticker: "RDN: Rupiah",
+    //     name: "Free Cash • Liquid Asset",
+    //     icon: "../icon/idrt.png",
+    //     type: "cash",
+    //     currency: "IDR",
+    //     showInTable: true,
+    //     // Cash data
+    //     amount: 263106, 
+    //     avgPrice: 1, 
+    //     currentPrice: 1 
+    // },
+    // {
+    //     ticker: "NYSE: BRK.B",
+    //     name: "Berkshire Hathaway Inc",
+    //     icon: "/icon/brk.png",
+    //     type: "stock",
+    //     currency: "USD",
+    //     showInTable: true,
+    //     // Stock data
+    //     shares: 0,
+    //     avgPrice: 485.41,
+    //     currentPrice: 485.41
+    // }
 ];
 
 // Utility Functions

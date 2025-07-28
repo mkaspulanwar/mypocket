@@ -22,13 +22,13 @@ const CONFIG = {
         timezone: 'Asia/Makassar' // WITA timezone
     },
     CHART_COLORS: [
+        "rgba(255, 193, 7, 0.9)",
         "rgba(255, 152, 0, 0.9)",
         "rgba(244, 67, 54, 0.9)",
         "rgba(96, 125, 255, 0.9)",
         "rgba(0, 191, 165, 0.9)",
-        "rgba(255, 193, 7, 0.9)",
         "rgba(156, 39, 176, 0.9)",
-        "rgba(121, 85, 72, 0.9)" // Additional color for RDN Cash
+        "rgba(121, 85, 72, 0.9)"
     ],
     API_REFRESH_INTERVAL: 60000 // 1 minute
 };
@@ -57,7 +57,7 @@ const ASSETS = [
         // Stock data
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 1515
+        currentPrice: 1830
     },
     {
         ticker: "BBCA",
@@ -96,18 +96,18 @@ const ASSETS = [
         avgPrice: 1, // Not used for calculation, just for compatibility
         currentPrice: 1 // Not used for calculation, just for compatibility
     },
-    // {
-    //     ticker: "RDN: Rupiah",
-    //     name: "Free Cash • Liquid Asset",
-    //     icon: "../icon/idrt.png",
-    //     type: "cash",
-    //     currency: "IDR",
-    //     showInTable: true,
-    //     // Cash data
-    //     amount: 200000, 
-    //     avgPrice: 1, 
-    //     currentPrice: 1 
-    // },
+    {
+        ticker: "Rupiah",
+        name: "Free Cash",
+        icon: "../icon/idrt.png",
+        type: "cash",
+        currency: "IDR",
+        showInTable: true,
+        // Cash data
+        amount: 410000, // Direct nominal value in IDR
+        avgPrice: 1, 
+        currentPrice: 1 
+    },
     // {
     //     ticker: "NYSE: BRK.B",
     //     name: "Berkshire Hathaway Inc",
@@ -297,8 +297,8 @@ const UIRenderer = {
             const returnClass = Utils.getReturnClass(asset.returnPercent);
             const returnSign = Utils.getReturnSign(asset.returnPercent);
 
-            // Different row structure for mutual funds (no avg price, current price, invested, and PnL columns)
-            if (asset.type === 'mutual_fund') {
+            // Different row structure for cash and mutual funds
+            if (asset.type === 'cash' || asset.type === 'mutual_fund') {
                 row.innerHTML = `
                     <td>
                         <span class="asset-icon">
@@ -310,12 +310,15 @@ const UIRenderer = {
                         </span>
                     </td>
                     <td>${asset.balance}</td>
-                    <td colspan="3" style="text-align: center; color: #666; font-style: italic;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
                     <td>${Utils.formatCurrency(asset.marketValue)}</td>
-                    <td style="text-align: center; color: #666;">-</td>
-                    <td style="text-align: center; color: #666;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
                 `;
             } else {
+                // Regular row structure for other asset types
                 row.innerHTML = `
                     <td>
                         <span class="asset-icon">
@@ -593,4 +596,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM loaded, initializing dashboard");
     Dashboard.initialize();
     Dashboard.setupAutoRefresh();
-});
+}); 

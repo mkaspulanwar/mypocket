@@ -310,7 +310,7 @@ const UIRenderer = {
                         </span>
                     </td>
                     <td>${asset.balance}</td>
-                    <td colspan="3" style="text-align: center; color: #666; font-style: italic;">Reksadana Pasar Uang</td>
+                    <td colspan="3" style="text-align: center; color: #666; font-style: italic;">-</td>
                     <td>${Utils.formatCurrency(asset.marketValue)}</td>
                     <td style="text-align: center; color: #666;">-</td>
                     <td style="text-align: center; color: #666;">-</td>

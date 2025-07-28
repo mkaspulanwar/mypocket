@@ -48,7 +48,7 @@ const ASSETS = [
         avgPrice: 1166095031
     },
     {
-        ticker: "IDX: CDIA",
+        ticker: "CDIA",
         name: "PT Chandra Daya Investasi Tbk",
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
         type: "stock",
@@ -60,7 +60,7 @@ const ASSETS = [
         currentPrice: 1515
     },
     {
-        ticker: "IDX: BBCA",
+        ticker: "BBCA",
         name: "PT Bank Cental Asia Tbk",
         icon: "../icon/bbca.png",
         type: "stock",
@@ -69,20 +69,32 @@ const ASSETS = [
         // Stock data
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8500
+        currentPrice: 8600
     },
     
     {
-        ticker: "IDX: COIN",
+        ticker: "COIN",
         name: "PT. Indokripto Koin Semesta Tbk",
         icon: "https://assets.stockbit.com/logos/companies/COIN.png?version=1750643999108901654",
         type: "stock",
         currency: "IDR",
         showInTable: true,
         // Stock data
-        shares: 800,
+        shares: 500,
         avgPrice: 100,
-        currentPrice: 665
+        currentPrice: 800
+    },
+    {
+        ticker: "RD619",
+        name: "BRI Seruni Pasar Uang III",
+        icon: "../icon/rd619.png",
+        type: "mutual_fund", // Changed from "stock" to "mutual_fund"
+        currency: "IDR",
+        showInTable: true,
+        // Mutual fund data - direct nominal amount
+        amount: 49000, // Direct nominal value in IDR
+        avgPrice: 1, // Not used for calculation, just for compatibility
+        currentPrice: 1 // Not used for calculation, just for compatibility
     },
     // {
     //     ticker: "RDN: Rupiah",
@@ -92,7 +104,7 @@ const ASSETS = [
     //     currency: "IDR",
     //     showInTable: true,
     //     // Cash data
-    //     amount: 263106, 
+    //     amount: 200000, 
     //     avgPrice: 1, 
     //     currentPrice: 1 
     // },
@@ -131,6 +143,8 @@ const Utils = {
                 return `${Utils.formatNumber(asset.shares)} shares`;
             case "cash":
                 return Utils.formatCurrency(asset.amount);
+            case "mutual_fund":
+                return Utils.formatCurrency(asset.amount); // Show as currency amount
             case "commodity":
                 return `${Utils.formatNumber(asset.quantity)} ${asset.unit}`;
             case "stablecoin":
@@ -152,6 +166,8 @@ const Utils = {
                 return asset.shares * asset.avgPrice;
             case "cash":
                 return asset.amount; // For cash, invested amount equals current amount
+            case "mutual_fund":
+                return asset.amount; // For mutual fund, invested equals current amount
             case "commodity":
                 return asset.quantity * asset.avgPrice;
             case "stablecoin":
@@ -173,6 +189,8 @@ const Utils = {
                 return asset.shares * asset.currentPrice;
             case "cash":
                 return asset.amount; // Cash always maintains its nominal value
+            case "mutual_fund":
+                return asset.amount; // Mutual fund maintains its nominal value
             case "commodity":
                 return asset.quantity * asset.currentPrice;
             case "stablecoin":
@@ -183,8 +201,8 @@ const Utils = {
     },
     
     formatPriceDisplay: (asset, isAvgPrice = false) => {
-        if (asset.type === "cash") {
-            return "Rp. 1"; // Always show Rp. 1 for cash
+        if (asset.type === "cash" || asset.type === "mutual_fund") {
+            return "Rp. 1"; // Always show Rp. 1 for cash and mutual fund
         }
         
         const price = isAvgPrice ? asset.avgPrice : asset.currentPrice;
@@ -279,24 +297,44 @@ const UIRenderer = {
             const returnClass = Utils.getReturnClass(asset.returnPercent);
             const returnSign = Utils.getReturnSign(asset.returnPercent);
 
-            row.innerHTML = `
-                <td>
-                    <span class="asset-icon">
-                        <img src="${asset.icon}" alt="${asset.ticker}">
-                    </span>
-                    <span class="asset-name">
-                        ${asset.ticker}
-                        <span class="asset-ticker">${asset.name}</span>
-                    </span>
-                </td>
-                <td>${asset.balance}</td>
-                <td>${Utils.formatCurrency(asset.invested)}</td>
-                <td>${Utils.formatPriceDisplay(asset, true)}</td>
-                <td>${Utils.formatPriceDisplay(asset)}</td>
-                <td>${Utils.formatCurrency(asset.marketValue)}</td>
-                <td class="${returnClass}">${Utils.formatCurrency(pnlValue)}</td>
-                <td class="${returnClass}">${returnSign}${Math.abs(asset.returnPercent).toFixed(2)}%</td>
-            `;
+            // Different row structure for mutual funds (no avg price, current price, invested, and PnL columns)
+            if (asset.type === 'mutual_fund') {
+                row.innerHTML = `
+                    <td>
+                        <span class="asset-icon">
+                            <img src="${asset.icon}" alt="${asset.ticker}">
+                        </span>
+                        <span class="asset-name">
+                            ${asset.ticker}
+                            <span class="asset-ticker">${asset.name}</span>
+                        </span>
+                    </td>
+                    <td>${asset.balance}</td>
+                    <td colspan="3" style="text-align: center; color: #666; font-style: italic;">Reksadana Pasar Uang</td>
+                    <td>${Utils.formatCurrency(asset.marketValue)}</td>
+                    <td style="text-align: center; color: #666;">-</td>
+                    <td style="text-align: center; color: #666;">-</td>
+                `;
+            } else {
+                row.innerHTML = `
+                    <td>
+                        <span class="asset-icon">
+                            <img src="${asset.icon}" alt="${asset.ticker}">
+                        </span>
+                        <span class="asset-name">
+                            ${asset.ticker}
+                            <span class="asset-ticker">${asset.name}</span>
+                        </span>
+                    </td>
+                    <td>${asset.balance}</td>
+                    <td>${Utils.formatCurrency(asset.invested)}</td>
+                    <td>${Utils.formatPriceDisplay(asset, true)}</td>
+                    <td>${Utils.formatPriceDisplay(asset)}</td>
+                    <td>${Utils.formatCurrency(asset.marketValue)}</td>
+                    <td class="${returnClass}">${Utils.formatCurrency(pnlValue)}</td>
+                    <td class="${returnClass}">${returnSign}${Math.abs(asset.returnPercent).toFixed(2)}%</td>
+                `;
+            }
 
             tableBody.appendChild(row);
         });

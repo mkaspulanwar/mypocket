@@ -417,21 +417,21 @@
             <div class="card balance-card">
                 <div class="card-header">
                     <i class="fa-solid fa-fire"></i>
-                    <span class="title">My Liquid Balance</span>
+                    <span class="title">Liquid Balance</span>
                 </div>
                 <div class="total-assets-container">
                     <div class="total-assets" id="totalEquity">Rp. 0</div>
                     <div class="usd-equivalent" id="usdEquivalent">$ 0</div>
                 </div>
                 
-                <div class="last-update" id="lastUpdate">Last Update: <br></div>
+                <div class="last-update" id="lastUpdate"><br></div>
             </div>
 
             <!-- Assets Table Card -->
             <div class="card assets-card">
                 <div class="card-header">
                     <i class="fa-solid fa-chart-simple"></i>
-                    <span class="title">Portfolio Overview</span>
+                    <span class="title">Detail Overview</span>
                 </div>
                 <div class="table-container">
                     <table class="distribution-table">
@@ -439,10 +439,10 @@
                             <tr>
                                 <th>Asset's Name</th>
                                 <th>Balance</th>
+                                <th>Market Value</th>
                                 <th>Invested</th>
                                 <th>Avg Price</th>
                                 <th>Current Price</th>
-                                <th>Market Value</th>
                                 <th>P&L (Rp)</th>
                                 <th>Return (%)</th>
                             </tr>
@@ -465,7 +465,6 @@ const CONFIG = {
     },
     BTC: {
         PRICE_IDR: 1500000000,
-        AVG_PRICE: 1166095031,
         SATS_TO_BTC: 100000000
     },
     LAST_UPDATE: {
@@ -475,7 +474,7 @@ const CONFIG = {
     API_REFRESH_INTERVAL: 60000
 };
 
-// Asset Data
+// Asset Data - Optimized untuk emas
 const ASSETS = [
     {
         ticker: "Bitcoin",
@@ -517,19 +516,19 @@ const ASSETS = [
         currentPrice: 795
     },
     {
-        ticker: "RD619",
-        name: "BRI Seruni Pasar Uang III",
+        ticker: "XAUID",
+        name: "Paxos Gold • Antam Gold",
         icon: "https://bibit.id/_next/static/media/CC002.767f37e4.svg",
-        type: "mutual_fund",
-        currency: "IDR",
-        amount: 49000,
-        avgPrice: 1,
-        currentPrice: 1
+        type: "gold",
+        currency: "gram",
+        grams: 0, // Jumlah emas dalam gram
+        avgPrice: 1200000, // Harga rata-rata per gram dalam IDR
+        currentPrice: 1913942 // Harga saat ini per gram dalam IDR
     },
     {
-        ticker: "Rupiah",
-        name: "Free Cash",
-        icon: "../icon/idrt.png",
+        ticker: "Dana Darurat",
+        name: "Cash Emergency Fund",
+        icon: "../icon/dd.svg",
         type: "cash",
         currency: "IDR",
         amount: 200000,
@@ -554,8 +553,9 @@ const Utils = {
                 return `${Utils.formatNumber(asset.freeSats)} sats`;
             case "stock":
                 return `${Utils.formatNumber(asset.shares)} shares`;
+            case "gold":
+                return `${Utils.formatNumber(asset.grams)} gram`;
             case "cash":
-            case "mutual_fund":
                 return Utils.formatCurrency(asset.amount);
             default:
                 return "0";
@@ -568,8 +568,9 @@ const Utils = {
                 return asset.freeSats * asset.avgPrice / CONFIG.BTC.SATS_TO_BTC;
             case "stock":
                 return asset.shares * asset.avgPrice;
+            case "gold":
+                return asset.grams * asset.avgPrice;
             case "cash":
-            case "mutual_fund":
                 return asset.amount;
             default:
                 return 0;
@@ -582,8 +583,9 @@ const Utils = {
                 return asset.freeSats * CONFIG.BTC.PRICE_IDR / CONFIG.BTC.SATS_TO_BTC;
             case "stock":
                 return asset.shares * asset.currentPrice;
+            case "gold":
+                return asset.grams * asset.currentPrice;
             case "cash":
-            case "mutual_fund":
                 return asset.amount;
             default:
                 return 0;
@@ -591,7 +593,7 @@ const Utils = {
     },
     
     formatPriceDisplay: (asset, isAvgPrice = false) => {
-        if (asset.type === "cash" || asset.type === "mutual_fund") {
+        if (asset.type === "cash") {
             return "Rp. 1";
         }
         
@@ -602,6 +604,11 @@ const Utils = {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })} jt`;
+        } else if (asset.type === "gold") {
+            return `Rp. ${(price / 1000).toLocaleString('id-ID', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            })} rb/gram`;
         } else {
             return `Rp. ${price.toLocaleString('id-ID', {
                 minimumFractionDigits: 2,
@@ -646,6 +653,13 @@ const AssetCalculator = {
             const marketValue = Utils.calculateMarketValue(asset);
             const returnPercent = invested > 0 ? ((marketValue - invested) / invested) * 100 : 0;
 
+            let currentPrice;
+            if (asset.type === "bitcoin") {
+                currentPrice = CONFIG.BTC.PRICE_IDR;
+            } else {
+                currentPrice = asset.currentPrice;
+            }
+
             return {
                 name: asset.name,
                 ticker: asset.ticker,
@@ -653,7 +667,7 @@ const AssetCalculator = {
                 balance,
                 invested: Math.round(invested),
                 avgPrice: asset.avgPrice,
-                currentPrice: asset.type === "bitcoin" ? CONFIG.BTC.PRICE_IDR : asset.currentPrice,
+                currentPrice: currentPrice,
                 currency: asset.currency,
                 type: asset.type,
                 marketValue: Math.round(marketValue),
@@ -678,7 +692,7 @@ const UIRenderer = {
             const returnClass = Utils.getReturnClass(asset.returnPercent);
             const returnSign = Utils.getReturnSign(asset.returnPercent);
 
-            if (asset.type === 'cash' || asset.type === 'mutual_fund') {
+            if (asset.type === 'cash') {
                 row.innerHTML = `
                     <td>
                         <span class="asset-icon">
@@ -690,10 +704,10 @@ const UIRenderer = {
                         </span>
                     </td>
                     <td>${asset.balance}</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
                     <td>${Utils.formatCurrency(asset.marketValue)}</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
+                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
                     <td style="text-align: center; color: #666; font-style: italic;">-</td>
                     <td style="text-align: center; color: #666; font-style: italic;">-</td>
                 `;
@@ -709,10 +723,10 @@ const UIRenderer = {
                         </span>
                     </td>
                     <td>${asset.balance}</td>
+                    <td>${Utils.formatCurrency(asset.marketValue)}</td>
                     <td>${Utils.formatCurrency(asset.invested)}</td>
                     <td>${Utils.formatPriceDisplay(asset, true)}</td>
                     <td>${Utils.formatPriceDisplay(asset)}</td>
-                    <td>${Utils.formatCurrency(asset.marketValue)}</td>
                     <td class="${returnClass}">${Utils.formatCurrency(pnlValue)}</td>
                     <td class="${returnClass}">${returnSign}${Math.abs(asset.returnPercent).toFixed(2)}%</td>
                 `;

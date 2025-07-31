@@ -89,7 +89,7 @@
         /* Header Styles */
         .header-section {
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             width: 100%;
             border: 1px solid #000000;
             border-radius: 12px;
@@ -101,15 +101,8 @@
         .author-name {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 8px;
             letter-spacing: 0.5px;
             color: #000000;
-        }
-
-        .dashboard-title {
-            font-size: 16px;
-            color: #555555;
-            letter-spacing: 1px;
         }
 
         .last-update {
@@ -408,7 +401,6 @@
         <!-- Header Section -->
         <div class="header-section">
             <div class="author-name">M. Kaspul Anwar</div>
-            <div class="dashboard-title">Wonderful Assets At A Fair Price</div>
         </div>
         
         <!-- Top Row with Balance Card and Assets Table -->
@@ -493,7 +485,17 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8400
+        currentPrice: 8275
+    },
+    {
+        ticker: "Dana Darurat",
+        name: "Cash Emergency Fund",
+        icon: "../icon/dd.svg",
+        type: "cash",
+        currency: "IDR",
+        amount: 619002,
+        avgPrice: 1,
+        currentPrice: 1
     },
     {
         ticker: "CDIA",
@@ -503,19 +505,8 @@ const ASSETS = [
         currency: "IDR",
         shares: 1100,
         avgPrice: 190,
-        currentPrice: 1680
+        currentPrice: 1485
     },
-    {
-        ticker: "COIN",
-        name: "Indokripto Koin Semesta Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/COIN.png?version=1750643999108901654",
-        type: "stock",
-        currency: "IDR",
-        shares: 500,
-        avgPrice: 100,
-        currentPrice: 795
-    },
-    
     {
         ticker: "XAUID",
         name: "Paxos Gold • Antam Gold",
@@ -526,16 +517,7 @@ const ASSETS = [
         avgPrice: 1200000, // Harga rata-rata per gram dalam IDR
         currentPrice: 1913942 // Harga saat ini per gram dalam IDR
     },
-    {
-        ticker: "Dana Darurat",
-        name: "Cash Emergency Fund",
-        icon: "../icon/dd.svg",
-        type: "cash",
-        currency: "IDR",
-        amount: 200000,
-        avgPrice: 1,
-        currentPrice: 1
-    },
+    
     {
         ticker: "BMRI",
         name: "Bank Mandiri Tbk",

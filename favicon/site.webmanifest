@@ -1,6 +1,6 @@
 {
-  "name": "MyFunds",
-  "short_name": "MyFunds",
+  "name": "Wallet",
+  "short_name": "Wallet",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

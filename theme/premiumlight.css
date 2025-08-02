@@ -22,8 +22,9 @@ body {
     max-width: 1000px;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 12px; /* Reduced from 20px */
+    justify-content: center;
     position: relative;
     margin-top: 10px;
 }
@@ -31,14 +32,14 @@ body {
 /* Layout Elements */
 .top-row {
     display: flex;
-    gap: 12px;
+    gap: 12px; /* Reduced from 20px */
     width: 100%;
 }
 
 .divider {
     height: 1px;
     background-color: #e0e0e0;
-    margin: 12px 0;
+    margin: 12px 0; /* Reduced from 15px */
     width: 100%;
 }
 
@@ -51,17 +52,11 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
+    margin-bottom: 12px; /* Reduced from 20px */
 }
 
-.balance-card {
-    width: 42%;
-    min-width: 350px;
-}
-
-.assets-card {
-    width: 58%;
-    min-width: 500px;
+.top-card {
+    width: calc(50% - 6px); /* Adjusted for smaller gap */
 }
 
 .full-width-card {
@@ -71,7 +66,7 @@ body {
 /* Header Styles */
 .header-section {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 12px; /* Reduced from 20px */
     width: 100%;
     border: 1px solid #000000;
     border-radius: 12px;
@@ -105,7 +100,7 @@ body {
     display: flex;
     align-items: center;
     position: relative;
-    margin-bottom: 18px;
+    margin-bottom: 18px; /* Slightly reduced */
     gap: 15px;
 }
 
@@ -127,7 +122,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 25px 0;
+    margin: 25px 0; /* Slightly reduced */
 }
 
 .total-assets {
@@ -347,17 +342,10 @@ body {
     font-weight: 500;
     color: #000000;
 }
-.asset-ticker {
-            display: block;
-            font-size: 12px;
-            color: #6c757d;
-            font-weight: 400;
-            margin-top: 4px;
-        }
 
 /* Summary Styles */
 .summary-card {
-    margin-top: 25px;
+    margin-top: 25px; /* Slightly reduced */
     padding: 20px;
     background: #ffffff;
     border: 1px solid #000000;
@@ -413,6 +401,7 @@ body {
     position: relative;
     margin: 0 auto;
     max-width: 300px;
+    /* Border removed per request */
     border-radius: 50%;
     padding: 5px;
     background: #ffffff;
@@ -449,7 +438,7 @@ body {
 .focus-tags {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 10px; /* Reduced from 12px */
     margin-top: 15px;
     width: 100%;
 }
@@ -518,7 +507,7 @@ body {
 .collateral-strategy-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 20px; /* Reduced from 30px */
     margin-top: 20px;
 }
 
@@ -528,13 +517,13 @@ body {
 }
 
 .loan-summary {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Reduced from 25px */
 }
 
 .loan-metrics {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 15px; /* Reduced from 20px */
 }
 
 .loan-metric-item {
@@ -670,7 +659,7 @@ body {
     top: 0;
     left: 0;
     height: 100%;
-    width: 0%;
+    width: 0%; /* Will be set by JS */
     background-color: #22c55e;
     border-radius: 12px 0 0 12px;
     transition: width 0.5s ease-in-out;
@@ -682,7 +671,7 @@ body {
     top: 0;
     right: 0;
     height: 100%;
-    width: 9%;
+    width: 9%; /* 100% - liquidation LTV */
     background-color: rgba(239, 68, 68);
     border-radius: 0 12px 12px 0;
     border: 1px solid #000000;
@@ -708,25 +697,14 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 1024px) {
-    .top-row {
-        flex-direction: column;
-    }
-    
-    .balance-card, .assets-card {
-        width: 100%;
-    }
-}
-
 @media (max-width: 768px) {
     .container,
     .top-row {
         flex-direction: column;
     }
 
-    .balance-card, .assets-card {
+    .top-card {
         width: 100%;
-        min-width: unset;
     }
 
     .total-assets {
@@ -738,17 +716,17 @@ body {
     }
     
     .container {
-        gap: 10px;
+        gap: 10px; /* Further reduced for mobile */
         padding: 0 5px;
     }
     
     .card {
-        margin-bottom: 10px;
+        margin-bottom: 10px; /* Further reduced for mobile */
         padding: 20px;
     }
     
     .header-section {
-        margin-bottom: 10px;
+        margin-bottom: 10px; /* Further reduced for mobile */
         padding: 20px;
     }
     
@@ -758,12 +736,12 @@ body {
     
     .collateral-strategy-container {
         flex-direction: column;
-        gap: 15px;
+        gap: 15px; /* Further reduced for mobile */
     }
     
     .loan-metrics {
         flex-direction: column;
-        gap: 12px;
+        gap: 12px; /* Further reduced for mobile */
     }
     
     .ltv-chart-container {
@@ -771,8 +749,8 @@ body {
     }
     
     .focus-tags {
-        grid-template-columns: 1fr;
-        gap: 8px;
+        grid-template-columns: 1fr; /* 1 column for mobile */
+        gap: 8px; /* Further reduced for mobile */
     }
     
     .focus-tag {
@@ -799,26 +777,26 @@ body {
     }
     
     .asset-icon {
-        width: 42px;
+        width: 42px; /* Slightly reduced for mobile */
         height: 42px;
     }
     
     .asset-icon img {
-        width: 32px;
+        width: 32px; /* Slightly reduced for mobile */
         height: 32px;
     }
     
     body {
-        padding: 12px;
+        padding: 12px; /* Slightly reduced for mobile */
     }
     
     .card {
-        padding: 16px;
+        padding: 16px; /* Slightly reduced for mobile */
         margin-bottom: 10px;
     }
     
     .card-header {
-        margin-bottom: 12px;
+        margin-bottom: 12px; /* Slightly reduced for mobile */
     }
     
     .container {

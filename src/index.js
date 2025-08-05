@@ -56,6 +56,16 @@ const ASSETS = [
         avgPrice: 190,
         currentPrice: 1780
     },
+    {
+        ticker: "BUKA",
+        name: "Bukalapak Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/BUKA.png",
+        type: "stock",
+        currency: "IDR",
+        shares: 1000,
+        avgPrice: 171,
+        currentPrice: 171
+    },
     // {
     //     ticker: "XAUID",
     //     name: "Paxos Gold • Antam Gold",

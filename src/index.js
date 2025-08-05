@@ -34,7 +34,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8300
+        currentPrice: 8425
     },
     {
         ticker: "Dana Darurat",
@@ -42,7 +42,7 @@ const ASSETS = [
         icon: "../icon/dd.svg",
         type: "cash",
         currency: "IDR",
-        amount: 464000,
+        amount: 494000,
         avgPrice: 1,
         currentPrice: 1
     },
@@ -52,9 +52,9 @@ const ASSETS = [
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
         type: "stock",
         currency: "IDR",
-        shares: 1100,
+        shares: 1000,
         avgPrice: 190,
-        currentPrice: 1790
+        currentPrice: 1780
     },
     // {
     //     ticker: "XAUID",

@@ -1,0 +1,815 @@
+/* Base/Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Container Styles */
+body {
+    background: #f5f5f5;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* Reduced from 20px */
+    justify-content: center;
+    position: relative;
+    margin-top: 10px;
+}
+
+/* Layout Elements */
+.top-row {
+    display: flex;
+    gap: 12px; /* Reduced from 20px */
+    width: 100%;
+}
+
+.divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 12px 0; /* Reduced from 15px */
+    width: 100%;
+}
+
+/* Card Styles */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px; /* Reduced from 20px */
+}
+
+.top-card {
+    width: calc(50% - 6px); /* Adjusted for smaller gap */
+}
+
+.full-width-card {
+    width: 100%;
+}
+
+/* Header Styles */
+.header-section {
+    text-align: center;
+    margin-bottom: 12px; /* Reduced from 20px */
+    width: 100%;
+    border: 1px solid #000000;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.author-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    color: #000000;
+}
+
+.dashboard-title {
+    font-size: 16px;
+    color: #555555;
+    letter-spacing: 1px;
+}
+
+.last-update {
+    font-size: 14px;
+    color: #555555;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 18px; /* Slightly reduced */
+    gap: 15px;
+}
+
+.card-header i {
+    font-size: 24px;
+    color: #000000;
+}
+
+.card-header .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    letter-spacing: 0.5px;
+}
+
+/* Assets Display */
+.total-assets-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0; /* Slightly reduced */
+}
+
+.total-assets {
+    font-size: 44px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.usd-equivalent {
+    font-size: 18px;
+    color: #555555;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Table Styles */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.distribution-table {
+    width: 100%;
+    min-width: 750px;
+    border-collapse: collapse;
+}
+
+.distribution-table th {
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid #000000;
+    color: #000000;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.distribution-table td {
+    padding: 16px 10px;
+    color: #000000;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+ /* Asset Icon Styles */
+ .asset-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 15px;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        0 1px 3px rgba(255, 255, 255, 0.2) inset,
+        0 -1px 2px rgba(0, 0, 0, 0.15) inset,
+        0 0 10px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.asset-icon:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.4),
+        0 1px 3px rgba(255, 255, 255, 0.3) inset,
+        0 0 12px rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.asset-icon::after {
+    content: "";
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.03) 40%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0.03) 60%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    opacity: 0.1;
+    transition: opacity 0.3s ease, top 0.5s ease;
+    pointer-events: none;
+}
+
+.asset-icon:hover::after {
+    top: -90%;
+    opacity: 0.3;
+    animation: shine 1.5s ease forwards;
+}
+
+.asset-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+    z-index: 1;
+    transition: transform 0.2s ease;
+}
+
+.asset-icon:hover img {
+    transform: scale(1.08);
+}
+
+@keyframes shine {
+    0% {
+        top: -150%;
+        opacity: 0.1;
+    }
+    100% {
+        top: 150%;
+        opacity: 0.3;
+    }
+}
+/* Loan Metric Icon Styles */
+.loan-metric-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 15px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.4),
+        0 1px 3px rgba(255, 255, 255, 0.2) inset,
+        0 -1px 2px rgba(0, 0, 0, 0.15) inset,
+        0 0 10px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.loan-metric-icon:hover {
+    transform: translateY(-2px) scale(1.03);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 14px rgba(0, 0, 0, 0.4),
+        0 1px 3px rgba(255, 255, 255, 0.3) inset,
+        0 0 12px rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.loan-metric-icon::after {
+    content: "";
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.03) 40%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0.03) 60%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    opacity: 0.1;
+    transition: opacity 0.3s ease, top 0.5s ease;
+    pointer-events: none;
+}
+
+.loan-metric-icon:hover::after {
+    top: -90%;
+    opacity: 0.3;
+    animation: shine-loan 1.5s ease forwards;
+}
+
+.loan-metric-icon img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+    z-index: 1;
+    transition: transform 0.2s ease;
+}
+
+.loan-metric-icon:hover img {
+    transform: scale(1.08);
+}
+
+@keyframes shine-loan {
+    0% {
+        top: -150%;
+        opacity: 0.1;
+    }
+    100% {
+        top: 150%;
+        opacity: 0.3;
+    }
+}
+
+.asset-name {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 500;
+    color: #000000;
+}
+
+/* Summary Styles */
+.summary-card {
+    margin-top: 25px; /* Slightly reduced */
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.summary-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #000000;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #555555;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+}
+
+/* Status Colors */
+.positive {
+    color: #22c55e !important;
+}
+
+.negative {
+    color: #ef4444 !important;
+}
+
+/* Chart Styles */
+.chart-container {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+    max-width: 300px;
+    /* Border removed per request */
+    border-radius: 50%;
+    padding: 5px;
+    background: #ffffff;
+}
+
+.donut-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid #000000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.legend-text {
+    font-size: 12px;
+    color: #333333;
+}
+
+/* Focus Tags Styles */
+.focus-tags {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Reduced from 12px */
+    margin-top: 15px;
+    width: 100%;
+}
+
+.focus-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+
+.focus-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.focus-text {
+    color: inherit;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 4px;
+    color: white;
+    border: 1px solid #000000;
+}
+
+.status-healthy {
+    background-color: #22c55e;
+}
+
+.status-warning {
+    background-color: #fbbf24;
+    color: #000;
+}
+
+.status-danger {
+    background-color: #ef4444;
+}
+
+.status-indicator-large {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #22c55e;
+    color: white;
+    border: 1px solid #000000;
+}
+
+/* Bitcoin Collateral Strategy Styles */
+.collateral-strategy-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Reduced from 30px */
+    margin-top: 20px;
+}
+
+.collateral-info-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.loan-summary {
+    margin-bottom: 20px; /* Reduced from 25px */
+}
+
+.loan-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Reduced from 20px */
+}
+
+.loan-metric-item {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loan-metric-details {
+    flex: 1;
+}
+
+.loan-metric-label {
+    font-size: 14px;
+    color: #555555;
+    margin-bottom: 4px;
+}
+
+.loan-metric-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.loan-metric-secondary {
+    font-size: 14px;
+    color: #555555;
+    margin-top: 2px;
+}
+
+.loan-details {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loan-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.loan-detail-row:last-child {
+    border-bottom: none;
+}
+
+.loan-detail-label {
+    font-size: 14px;
+    color: #555555;
+}
+
+.loan-detail-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+}
+
+/* LTV Chart Styles */
+.ltv-chart-container {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ltv-chart-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.ltv-current {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.ltv-max {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.ltv-label {
+    font-size: 14px;
+    color: #555555;
+    margin-bottom: 5px;
+}
+
+.ltv-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.ltv-bar-container {
+    margin: 25px 0;
+}
+
+.ltv-bar-wrapper {
+    position: relative;
+    height: 24px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.ltv-bar-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    border: 1px solid #000000;
+}
+
+.ltv-bar-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%; /* Will be set by JS */
+    background-color: #22c55e;
+    border-radius: 12px 0 0 12px;
+    transition: width 0.5s ease-in-out;
+    border: 1px solid #000000;
+}
+
+.ltv-danger-zone {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 9%; /* 100% - liquidation LTV */
+    background-color: rgba(239, 68, 68);
+    border-radius: 0 12px 12px 0;
+    border: 1px solid #000000;
+}
+
+.ltv-markers {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 20px;
+}
+
+.ltv-marker {
+    position: absolute;
+    font-size: 12px;
+    color: #555555;
+    transform: translateX(-50%);
+}
+
+.ltv-status {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container,
+    .top-row {
+        flex-direction: column;
+    }
+
+    .top-card {
+        width: 100%;
+    }
+
+    .total-assets {
+        font-size: 38px;
+    }
+    
+    .usd-equivalent {
+        font-size: 16px;
+    }
+    
+    .container {
+        gap: 10px; /* Further reduced for mobile */
+        padding: 0 5px;
+    }
+    
+    .card {
+        margin-bottom: 10px; /* Further reduced for mobile */
+        padding: 20px;
+    }
+    
+    .header-section {
+        margin-bottom: 10px; /* Further reduced for mobile */
+        padding: 20px;
+    }
+    
+    body {
+        padding: 15px;
+    }
+    
+    .collateral-strategy-container {
+        flex-direction: column;
+        gap: 15px; /* Further reduced for mobile */
+    }
+    
+    .loan-metrics {
+        flex-direction: column;
+        gap: 12px; /* Further reduced for mobile */
+    }
+    
+    .ltv-chart-container {
+        padding: 25px;
+    }
+    
+    .focus-tags {
+        grid-template-columns: 1fr; /* 1 column for mobile */
+        gap: 8px; /* Further reduced for mobile */
+    }
+    
+    .focus-tag {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .distribution-table {
+        font-size: 14px;
+    }
+
+    .total-assets {
+        font-size: 36px;
+    }
+    
+    .usd-equivalent {
+        font-size: 14px;
+    }
+
+    .card-header .title {
+        font-size: 18px;
+    }
+    
+    .asset-icon {
+        width: 42px; /* Slightly reduced for mobile */
+        height: 42px;
+    }
+    
+    .asset-icon img {
+        width: 32px; /* Slightly reduced for mobile */
+        height: 32px;
+    }
+    
+    body {
+        padding: 12px; /* Slightly reduced for mobile */
+    }
+    
+    .card {
+        padding: 16px; /* Slightly reduced for mobile */
+        margin-bottom: 10px;
+    }
+    
+    .card-header {
+        margin-bottom: 12px; /* Slightly reduced for mobile */
+    }
+    
+    .container {
+        padding: 0 5px;
+    }
+    
+    .summary-card {
+        padding: 15px;
+    }
+    
+    .table-container {
+        margin-left: -5px;
+        margin-right: -5px;
+        width: calc(100% + 10px);
+    }
+}

@@ -137,12 +137,14 @@
             opacity: 0.8;
         }
 
-        .card-number {
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
-            color: #000000;
+        .inspiring-quote {
+            font-size: 14px;
+            font-weight: 500;
+            font-style: italic;
+            color: #2c3e50;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            max-width: 200px;
         }
 
         .last-update {
@@ -154,7 +156,7 @@
             font-weight: 400;
         }
 
-        /* Table Styles - Fixed Layout */
+        /* Table Styles - Modified Layout */
         .table-container {
             width: 100%;
             margin-top: 10px;
@@ -169,12 +171,12 @@
 
         .distribution-table th:first-child,
         .distribution-table td:first-child {
-            width: 60%;
+            width: 50%;
         }
 
         .distribution-table th:last-child,
         .distribution-table td:last-child {
-            width: 40%;
+            width: 50%;
             text-align: right;
         }
 
@@ -199,64 +201,88 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Asset Icon Styles - Elegant with 3D effect */
+        /* Enhanced Asset Icon Styles - More 3D and Elegant */
         .asset-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 42px;
-            height: 42px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             margin-right: 15px;
             vertical-align: middle;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
             box-shadow: 
-                0 2px 8px rgba(0, 0, 0, 0.06),
-                0 1px 4px rgba(0, 0, 0, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                0 4px 10px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+                inset -1px 0 2px rgba(0, 0, 0, 0.05),
+                inset 1px 0 2px rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             flex-shrink: 0;
         }
 
         .asset-icon:hover {
-            transform: translateY(-1px);
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 1px solid #d0d0d0;
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            border: 2px solid #adb5bd;
             box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.12),
-                0 2px 8px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+                0 15px 35px rgba(0, 0, 0, 0.25),
+                0 8px 15px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.15),
+                inset -2px 0 3px rgba(0, 0, 0, 0.08),
+                inset 2px 0 3px rgba(255, 255, 255, 0.4);
         }
 
         .asset-icon::before {
             content: '';
             position: absolute;
-            top: 1px;
-            left: 1px;
-            right: 1px;
-            bottom: 1px;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
             border-radius: 50%;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), transparent 50%);
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.8) 0%, 
+                rgba(255, 255, 255, 0.4) 30%,
+                transparent 60%);
             pointer-events: none;
+            z-index: 1;
+        }
+
+        .asset-icon::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: linear-gradient(315deg, 
+                rgba(0, 0, 0, 0.15) 0%, 
+                transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .asset-icon img {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             object-fit: contain;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
             position: relative;
-            z-index: 1;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+            z-index: 2;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(1.05) contrast(1.1);
         }
 
         .asset-icon:hover img {
-            transform: scale(1.02);
+            transform: scale(1.08);
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25)) brightness(1.1) contrast(1.15);
         }
 
         .asset-row {
@@ -272,8 +298,8 @@
             flex: 1;
         }
 
-        .asset-name {
-            font-weight: 500;
+        .asset-ticker {
+            font-weight: 600;
             color: #000000;
             font-size: 15px;
             white-space: nowrap;
@@ -282,26 +308,46 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .asset-balance {
+        .asset-name {
             font-size: 12px;
             color: #6c757d;
             font-weight: 400;
-            margin-top: 4px;
+            margin-top: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
         }
 
+        .value-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 0;
+            flex: 1;
+        }
+
         .market-value {
             color: #000000;
-            font-weight: 400; /* Not bold */
+            font-weight: 500;
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
             font-size: 15px;
+        }
+
+        .asset-balance {
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 400;
+            margin-top: 2px;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Inter', sans-serif;
         }
 
         /* Media Queries */
@@ -362,10 +408,11 @@
                 padding: 12px 8px;
             }
 
-            .asset-name {
+            .asset-ticker {
                 font-size: 14px;
             }
 
+            .asset-name,
             .asset-balance {
                 font-size: 11px;
             }
@@ -389,14 +436,14 @@
             }
             
             .asset-icon {
-                width: 36px;
-                height: 36px;
+                width: 42px;
+                height: 42px;
                 margin-right: 12px;
             }
             
             .asset-icon img {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
             }
             
             body {
@@ -421,10 +468,11 @@
                 padding: 12px 6px;
             }
 
-            .asset-name {
+            .asset-ticker {
                 font-size: 13px;
             }
 
+            .asset-name,
             .asset-balance {
                 font-size: 10px;
             }
@@ -435,6 +483,11 @@
 
             .last-update {
                 font-size: 10px;
+            }
+
+            .inspiring-quote {
+                font-size: 12px;
+                max-width: 150px;
             }
         }
 </style>
@@ -456,7 +509,7 @@
                     <div class="usd-equivalent" id="usdEquivalent">$ 0</div>
                 </div>
                 <div class="card-footer">
-                    <div class="card-number">**** **** 2024</div>
+                    <div class="inspiring-quote" id="inspiringQuote">Time in the market beats timing the market</div>
                     <div class="last-update" id="lastUpdate">Loading...</div>
                 </div>
             </div>
@@ -468,7 +521,7 @@
                         <thead>
                             <tr>
                                 <th>Asset</th>
-                                <th>Market Value</th>
+                                <th>Value & Balance</th>
                             </tr>
                         </thead>
                         <tbody id="assetTableBody">
@@ -497,6 +550,19 @@ const CONFIG = {
     API_REFRESH_INTERVAL: 60000
 };
 
+// Inspiring quotes array
+const INSPIRING_QUOTES = [
+    "Time in the market beats timing the market",
+    "Invest in yourself first",
+    "Compound interest is the 8th wonder",
+    "Buy when others are fearful",
+    "Diversification is protection",
+    "Stay the course",
+    "Think long term",
+    "Risk comes from not knowing",
+    "Be patient with your growth"
+];
+
 // Asset Data
 const ASSETS = [
     {
@@ -511,7 +577,7 @@ const ASSETS = [
     {
         ticker: "BBCA",
         name: "Bank Central Asia Tbk",
-        icon: "/icon/bbca.png",
+        icon: "icon/bbca.png",
         type: "stock",
         currency: "IDR",
         shares: 100,
@@ -521,7 +587,7 @@ const ASSETS = [
     {
         ticker: "Dana Darurat",
         name: "Cash Emergency Fund",
-        icon: "icon/dd.svg",
+        icon: "icon/idrt.png",
         type: "cash",
         currency: "IDR",
         amount: 571000,
@@ -601,6 +667,10 @@ const Utils = {
 
     updateLastUpdateTimestamp: () => {
         CONFIG.LAST_UPDATE.timestamp = new Date().getTime();
+    },
+
+    getRandomQuote: () => {
+        return INSPIRING_QUOTES[Math.floor(Math.random() * INSPIRING_QUOTES.length)];
     }
 };
 
@@ -641,13 +711,16 @@ const UIRenderer = {
                             <img src="${asset.icon}" alt="${asset.ticker}">
                         </span>
                         <div class="asset-info">
-                            <div class="asset-name">${asset.ticker}</div>
-                            <div class="asset-balance">${asset.balance}</div>
+                            <div class="asset-ticker">${asset.ticker}</div>
+                            <div class="asset-name">${asset.name}</div>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <div class="market-value">${Utils.formatCurrency(asset.marketValue)}</div>
+                    <div class="value-info">
+                        <div class="market-value">${Utils.formatCurrency(asset.marketValue)}</div>
+                        <div class="asset-balance">${asset.balance}</div>
+                    </div>
                 </td>
             `;
 
@@ -671,6 +744,13 @@ const UIRenderer = {
         if (lastUpdateElement) {
             const formattedUpdate = Utils.formatTimestamp(CONFIG.LAST_UPDATE.timestamp);
             lastUpdateElement.innerHTML = formattedUpdate;
+        }
+    },
+
+    updateQuote: () => {
+        const quoteElement = document.getElementById('inspiringQuote');
+        if (quoteElement) {
+            quoteElement.textContent = Utils.getRandomQuote();
         }
     }
 };
@@ -738,6 +818,7 @@ const Dashboard = {
             UIRenderer.populateAssetTable(calculatedAssets);
             UIRenderer.updatePortfolioSummary(calculatedAssets);
             UIRenderer.displayLastUpdate();
+            UIRenderer.updateQuote();
             console.log("Dashboard initialized successfully");
         } catch (error) {
             console.error("Error initializing dashboard:", error);

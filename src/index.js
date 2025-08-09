@@ -1,12 +1,11 @@
 // Configuration Constants
 const CONFIG = {
     EXCHANGE_RATES: {
-        USD_TO_IDR: 16300,
-        USDT_TO_IDR: 16300
+        USD_TO_IDR: 16300
     },
-    BTC: {
-        PRICE_IDR: 1500000000,
-        SATS_TO_BTC: 100000000
+    CONSTANTS: {
+        SATS_TO_BTC: 100000000,
+        GRAMS_TO_TROY_OUNCE: 31.1035
     },
     LAST_UPDATE: {
         timestamp: null,
@@ -15,21 +14,31 @@ const CONFIG = {
     API_REFRESH_INTERVAL: 60000
 };
 
-// Asset Data - Optimized untuk emas
+// Inspiring quotes array
+const INSPIRING_QUOTES = [
+    "Think long term",
+    "Spend less than you earn",
+    "Invest in assets, not toys",
+    "Hold cash, buy value",
+];
+
+// Asset Data dengan harga default
 const ASSETS = [
     {
         ticker: "Bitcoin",
-        name: "Portable Asset",
+        name: "Portable Commodity",
         icon: "/icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
         freeSats: 45045,
-        avgPrice: 1166095031
+        avgPrice: 1166095031,
+        currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
+        apiId: "bitcoin" // ID untuk API CoinGecko
     },
     {
         ticker: "BBCA",
-        name: "Bank Cental Asia Tbk",
-        icon: "../icon/bbca.png",
+        name: "Bank Central Asia Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/BBCA.png",
         type: "stock",
         currency: "IDR",
         shares: 100,
@@ -37,12 +46,12 @@ const ASSETS = [
         currentPrice: 8400
     },
     {
-        ticker: "Dana Darurat",
-        name: "Cash Emergency Fund",
-        icon: "../icon/dd.svg",
+        ticker: "Reserve Fund",
+        name: "Cash on Standby",
+        icon: "icon/dd.svg",
         type: "cash",
         currency: "IDR",
-        amount: 571000,
+        amount: 371000,
         avgPrice: 1,
         currentPrice: 1
     },
@@ -56,28 +65,27 @@ const ASSETS = [
         avgPrice: 190,
         currentPrice: 1580
     },
-    
-    // {
-    //     ticker: "XAUID",
-    //     name: "Paxos Gold • Antam Gold",
-    //     icon: "../icon/gold.svg",
-    //     type: "gold",
-    //     currency: "gram",
-    //     grams: 0, // Jumlah emas dalam gram
-    //     avgPrice: 1200000, // Harga rata-rata per gram dalam IDR
-    //     currentPrice: 1913942 // Harga saat ini per gram dalam IDR
-    // },
-    
-    // {
-    //     ticker: "BMRI",
-    //     name: "Bank Mandiri Tbk",
-    //     icon: "https://bibit.id/_next/static/media/CC002.767f37e4.svg",
-    //     type: "stock",
-    //     currency: "IDR",
-    //     shares: 0,
-    //     avgPrice: 0,
-    //     currentPrice: 0
-    // },
+    {
+        ticker: "Futures Long",
+        name: "Binance Futures Trade",
+        icon: "/icon/binance.png",
+        type: "cash",
+        currency: "IDR",
+        amount: 160000,
+        avgPrice: 1,
+        currentPrice: 1
+    },
+    {
+        ticker: "XAUID",
+        name: "Paxos & Antam Gold",
+        icon: "/icon/gold.svg",
+        type: "gold",
+        currency: "IDR",
+        grams: 0,
+        avgPrice: 1150000,
+        currentPrice: 1950000, // Harga default emas per gram dalam IDR
+        apiId: "gold" // ID untuk API
+    }
 ];
 
 // Utility Functions
@@ -94,10 +102,10 @@ const Utils = {
         switch (asset.type) {
             case "bitcoin":
                 return `${Utils.formatNumber(asset.freeSats)} sats`;
-            case "stock":
-                return `${Utils.formatNumber(asset.shares)} shares`;
             case "gold":
                 return `${Utils.formatNumber(asset.grams)} gram`;
+            case "stock":
+                return `${Utils.formatNumber(asset.shares)} shares`;
             case "cash":
                 return Utils.formatCurrency(asset.amount);
             default:
@@ -105,85 +113,50 @@ const Utils = {
         }
     },
     
-    calculateInvested: (asset) => {
-        switch (asset.type) {
-            case "bitcoin":
-                return asset.freeSats * asset.avgPrice / CONFIG.BTC.SATS_TO_BTC;
-            case "stock":
-                return asset.shares * asset.avgPrice;
-            case "gold":
-                return asset.grams * asset.avgPrice;
-            case "cash":
-                return asset.amount;
-            default:
-                return 0;
-        }
-    },
-    
     calculateMarketValue: (asset) => {
         switch (asset.type) {
             case "bitcoin":
-                return asset.freeSats * CONFIG.BTC.PRICE_IDR / CONFIG.BTC.SATS_TO_BTC;
-            case "stock":
-                return asset.shares * asset.currentPrice;
+                return asset.freeSats * asset.currentPrice / CONFIG.CONSTANTS.SATS_TO_BTC;
             case "gold":
                 return asset.grams * asset.currentPrice;
+            case "stock":
+                return asset.shares * asset.currentPrice;
             case "cash":
                 return asset.amount;
             default:
                 return 0;
         }
     },
-    
-    formatPriceDisplay: (asset, isAvgPrice = false) => {
-        if (asset.type === "cash") {
-            return "Rp. 1";
-        }
-        
-        const price = isAvgPrice ? asset.avgPrice : asset.currentPrice;
-        
-        if (asset.type === "bitcoin") {
-            return `Rp. ${(price / 1000000).toLocaleString('id-ID', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            })} jt`;
-        } else if (asset.type === "gold") {
-            return `Rp. ${(price / 1000).toLocaleString('id-ID', {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            })} rb/gram`;
-        } else {
-            return `Rp. ${price.toLocaleString('id-ID', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            })}`;
-        }
-    },
-    
-    getReturnClass: (returnPercent) => returnPercent > 0 ? 'positive' : returnPercent < 0 ? 'negative' : '',
-    
-    getReturnSign: (returnPercent) => returnPercent > 0 ? '+ ' : returnPercent < 0 ? '- ' : '',
 
     formatTimestamp: (timestamp) => {
-        if (!timestamp) return 'Belum diperbarui';
+        if (!timestamp) return 'Loading...';
         
         const date = new Date(timestamp);
         const options = {
             timeZone: CONFIG.LAST_UPDATE.timezone,
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
         };
         
-        const formatter = new Intl.DateTimeFormat('id-ID', options);
-        return `${formatter.format(date)} WITA`;
+        const timeFormatter = new Intl.DateTimeFormat('id-ID', options);
+        const dateOptions = {
+            timeZone: CONFIG.LAST_UPDATE.timezone,
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit'
+        };
+        const dateFormatter = new Intl.DateTimeFormat('id-ID', dateOptions);
+        
+        return `${timeFormatter.format(date)}<br>${dateFormatter.format(date)}`;
     },
 
     updateLastUpdateTimestamp: () => {
         CONFIG.LAST_UPDATE.timestamp = new Date().getTime();
+    },
+
+    getRandomQuote: () => {
+        return INSPIRING_QUOTES[Math.floor(Math.random() * INSPIRING_QUOTES.length)];
     }
 };
 
@@ -192,29 +165,15 @@ const AssetCalculator = {
     calculateAssetValues: () => {
         return ASSETS.map(asset => {
             const balance = Utils.formatBalance(asset);
-            const invested = Utils.calculateInvested(asset);
             const marketValue = Utils.calculateMarketValue(asset);
-            const returnPercent = invested > 0 ? ((marketValue - invested) / invested) * 100 : 0;
-
-            let currentPrice;
-            if (asset.type === "bitcoin") {
-                currentPrice = CONFIG.BTC.PRICE_IDR;
-            } else {
-                currentPrice = asset.currentPrice;
-            }
 
             return {
                 name: asset.name,
                 ticker: asset.ticker,
                 icon: asset.icon,
                 balance,
-                invested: Math.round(invested),
-                avgPrice: asset.avgPrice,
-                currentPrice: currentPrice,
-                currency: asset.currency,
-                type: asset.type,
                 marketValue: Math.round(marketValue),
-                returnPercent: isNaN(returnPercent) ? 0 : returnPercent
+                type: asset.type
             };
         });
     }
@@ -228,52 +187,28 @@ const UIRenderer = {
         
         tableBody.innerHTML = '';
 
-        // Display assets in the order they appear in the ASSETS array (custom order)
         calculatedAssets.forEach(asset => {
             const row = document.createElement('tr');
-            const pnlValue = asset.marketValue - asset.invested;
-            const returnClass = Utils.getReturnClass(asset.returnPercent);
-            const returnSign = Utils.getReturnSign(asset.returnPercent);
-
-            if (asset.type === 'cash') {
-                row.innerHTML = `
-                    <td>
+            
+            row.innerHTML = `
+                <td>
+                    <div class="asset-row">
                         <span class="asset-icon">
                             <img src="${asset.icon}" alt="${asset.ticker}">
                         </span>
-                        <span class="asset-name">
-                            ${asset.ticker}
-                            <span class="asset-ticker">${asset.name}</span>
-                        </span>
-                    </td>
-                    <td>${asset.balance}</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                    <td style="text-align: center; color: #666; font-style: italic;">-</td>
-                `;
-            } else {
-                row.innerHTML = `
-                    <td>
-                        <span class="asset-icon">
-                            <img src="${asset.icon}" alt="${asset.ticker}">
-                        </span>
-                        <span class="asset-name">
-                            ${asset.ticker}
-                            <span class="asset-ticker">${asset.name}</span>
-                        </span>
-                    </td>
-                    <td>${asset.balance}</td>
-                    <td>${Utils.formatCurrency(asset.marketValue)}</td>
-                    <td>${Utils.formatCurrency(asset.invested)}</td>
-                    <td>${Utils.formatPriceDisplay(asset, true)}</td>
-                    <td>${Utils.formatPriceDisplay(asset)}</td>
-                    <td class="${returnClass}">${Utils.formatCurrency(pnlValue)}</td>
-                    <td class="${returnClass}">${returnSign}${Math.abs(asset.returnPercent).toFixed(2)}%</td>
-                `;
-            }
+                        <div class="asset-info">
+                            <div class="asset-ticker">${asset.ticker}</div>
+                            <div class="asset-name">${asset.name}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="value-info">
+                        <div class="market-value">${Utils.formatCurrency(asset.marketValue)}</div>
+                        <div class="asset-balance">${asset.balance}</div>
+                    </div>
+                </td>
+            `;
 
             tableBody.appendChild(row);
         });
@@ -294,13 +229,28 @@ const UIRenderer = {
         const lastUpdateElement = document.getElementById('lastUpdate');
         if (lastUpdateElement) {
             const formattedUpdate = Utils.formatTimestamp(CONFIG.LAST_UPDATE.timestamp);
-            lastUpdateElement.innerHTML = `Last Update: <br> ${formattedUpdate}`;
+            lastUpdateElement.innerHTML = formattedUpdate;
+        }
+    },
+
+    updateQuote: () => {
+        const quoteElement = document.getElementById('inspiringQuote');
+        if (quoteElement) {
+            quoteElement.textContent = Utils.getRandomQuote();
         }
     }
 };
 
 // API Handler
 const APIHandler = {
+    updateAssetPrice: (ticker, newPrice) => {
+        const asset = ASSETS.find(a => a.ticker === ticker);
+        if (asset) {
+            asset.currentPrice = newPrice;
+            console.log(`${ticker} price updated to: ${newPrice}`);
+        }
+    },
+
     fetchBitcoinPrice: async () => {
         try {
             const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,idr');
@@ -312,15 +262,16 @@ const APIHandler = {
             const data = await response.json();
             
             if (data?.bitcoin) {
-                CONFIG.BTC.PRICE_IDR = data.bitcoin.idr;
+                // Update harga Bitcoin di array ASSETS
+                APIHandler.updateAssetPrice("Bitcoin", data.bitcoin.idr);
                 
+                // Update exchange rate jika ada data USD
                 if (data.bitcoin.usd) {
                     const usdToIdrRate = data.bitcoin.idr / data.bitcoin.usd;
                     CONFIG.EXCHANGE_RATES.USD_TO_IDR = usdToIdrRate;
-                    CONFIG.EXCHANGE_RATES.USDT_TO_IDR = usdToIdrRate;
                 }
                 
-                console.log(`Bitcoin price updated: ${CONFIG.BTC.PRICE_IDR} IDR`);
+                console.log(`Bitcoin price updated: ${data.bitcoin.idr} IDR`);
                 return true;
             }
             
@@ -331,11 +282,75 @@ const APIHandler = {
         }
     },
 
+    fetchGoldPrice: async () => {
+        try {
+            // Menggunakan API Metals Live untuk mendapatkan harga emas dalam USD per troy ounce
+            const response = await fetch('https://api.metals.live/v1/spot/gold');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data && data.price) {
+                // Konversi dari USD per troy ounce ke IDR per gram
+                const goldPriceUsdPerOunce = data.price;
+                const goldPriceUsdPerGram = goldPriceUsdPerOunce / CONFIG.CONSTANTS.GRAMS_TO_TROY_OUNCE;
+                const goldPriceIdrPerGram = goldPriceUsdPerGram * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
+                
+                // Update harga emas di array ASSETS
+                APIHandler.updateAssetPrice("XAUID", goldPriceIdrPerGram);
+                
+                console.log(`Gold price updated: ${goldPriceIdrPerGram} IDR per gram`);
+                return true;
+            }
+            
+            throw new Error("Invalid response from Metals Live API");
+        } catch (error) {
+            console.error("Error fetching Gold price:", error);
+            // Fallback: gunakan API alternatif jika tersedia
+            return APIHandler.fetchGoldPriceAlternative();
+        }
+    },
+
+    fetchGoldPriceAlternative: async () => {
+        try {
+            // API alternatif untuk harga emas
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=gold&vs_currencies=usd');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data?.gold?.usd) {
+                // CoinGecko memberikan harga dalam USD per troy ounce
+                const goldPriceUsdPerOunce = data.gold.usd;
+                const goldPriceUsdPerGram = goldPriceUsdPerOunce / CONFIG.CONSTANTS.GRAMS_TO_TROY_OUNCE;
+                const goldPriceIdrPerGram = goldPriceUsdPerGram * CONFIG.EXCHANGE_RATES.USD_TO_IDR;
+                
+                // Update harga emas di array ASSETS
+                APIHandler.updateAssetPrice("XAUID", goldPriceIdrPerGram);
+                
+                console.log(`Gold price updated (alternative): ${goldPriceIdrPerGram} IDR per gram`);
+                return true;
+            }
+            
+            return false;
+        } catch (error) {
+            console.error("Error fetching Gold price from alternative source:", error);
+            return false;
+        }
+    },
+
     fetchAllPrices: async () => {
         try {
             console.log("Fetching market data...");
             
             const bitcoinSuccess = await APIHandler.fetchBitcoinPrice();
+            const goldSuccess = await APIHandler.fetchGoldPrice();
             
             Utils.updateLastUpdateTimestamp();
             Dashboard.initialize();
@@ -344,7 +359,11 @@ const APIHandler = {
                 console.log(`Successfully updated Bitcoin price at ${new Date().toLocaleString('id-ID', { timeZone: CONFIG.LAST_UPDATE.timezone })}`);
             }
             
-            return bitcoinSuccess;
+            if (goldSuccess) {
+                console.log(`Successfully updated Gold price at ${new Date().toLocaleString('id-ID', { timeZone: CONFIG.LAST_UPDATE.timezone })}`);
+            }
+            
+            return bitcoinSuccess || goldSuccess;
         } catch (error) {
             console.error("Error fetching market data:", error);
             Utils.updateLastUpdateTimestamp();
@@ -362,6 +381,7 @@ const Dashboard = {
             UIRenderer.populateAssetTable(calculatedAssets);
             UIRenderer.updatePortfolioSummary(calculatedAssets);
             UIRenderer.displayLastUpdate();
+            UIRenderer.updateQuote();
             console.log("Dashboard initialized successfully");
         } catch (error) {
             console.error("Error initializing dashboard:", error);

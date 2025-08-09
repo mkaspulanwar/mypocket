@@ -1,6 +1,6 @@
 {
-  "name": "Wallet",
-  "short_name": "Wallet",
+  "name": "Pocket",
+  "short_name": "MyPocket",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

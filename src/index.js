@@ -23,7 +23,7 @@ const ASSETS = [
         icon: "/icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
-        freeSats: 35045,
+        freeSats: 45045,
         avgPrice: 1166095031
     },
     {
@@ -34,7 +34,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8425
+        currentPrice: 8400
     },
     {
         ticker: "Dana Darurat",
@@ -42,7 +42,7 @@ const ASSETS = [
         icon: "../icon/dd.svg",
         type: "cash",
         currency: "IDR",
-        amount: 494000,
+        amount: 371000,
         avgPrice: 1,
         currentPrice: 1
     },
@@ -54,18 +54,9 @@ const ASSETS = [
         currency: "IDR",
         shares: 1000,
         avgPrice: 190,
-        currentPrice: 1780
+        currentPrice: 1580
     },
-    {
-        ticker: "BUKA",
-        name: "Bukalapak Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/BUKA.png",
-        type: "stock",
-        currency: "IDR",
-        shares: 1000,
-        avgPrice: 171,
-        currentPrice: 171
-    },
+    
     // {
     //     ticker: "XAUID",
     //     name: "Paxos Gold • Antam Gold",

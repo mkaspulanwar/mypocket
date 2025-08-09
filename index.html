@@ -171,12 +171,12 @@
 
         .distribution-table th:first-child,
         .distribution-table td:first-child {
-            width: 50%;
+            width: 60%;
         }
 
         .distribution-table th:last-child,
         .distribution-table td:last-child {
-            width: 50%;
+            width: 40%;
             text-align: right;
         }
 
@@ -201,88 +201,84 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Enhanced Asset Icon Styles - More 3D and Elegant */
+        /* Asset Icon Styles */
         .asset-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             margin-right: 15px;
             vertical-align: middle;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
-            border: 2px solid #dee2e6;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
             box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.15),
-                0 4px 10px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                inset 0 -1px 2px rgba(0, 0, 0, 0.1),
-                inset -1px 0 2px rgba(0, 0, 0, 0.05),
-                inset 1px 0 2px rgba(255, 255, 255, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                0 4px 8px rgba(0, 0, 0, 0.4),
+                0 1px 3px rgba(255, 255, 255, 0.2) inset,
+                0 -1px 2px rgba(0, 0, 0, 0.15) inset,
+                0 0 10px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             flex-shrink: 0;
         }
 
         .asset-icon:hover {
-            transform: translateY(-3px) scale(1.05);
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
-            border: 2px solid #adb5bd;
+            transform: translateY(-2px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.25),
-                0 8px 15px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 1),
-                inset 0 -2px 3px rgba(0, 0, 0, 0.15),
-                inset -2px 0 3px rgba(0, 0, 0, 0.08),
-                inset 2px 0 3px rgba(255, 255, 255, 0.4);
-        }
-
-        .asset-icon::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, 
-                rgba(255, 255, 255, 0.8) 0%, 
-                rgba(255, 255, 255, 0.4) 30%,
-                transparent 60%);
-            pointer-events: none;
-            z-index: 1;
+                0 6px 12px rgba(0, 0, 0, 0.4),
+                0 1px 3px rgba(255, 255, 255, 0.3) inset,
+                0 0 12px rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.35);
         }
 
         .asset-icon::after {
-            content: '';
+            content: "";
             position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 60%;
-            height: 60%;
-            border-radius: 50%;
-            background: linear-gradient(315deg, 
-                rgba(0, 0, 0, 0.15) 0%, 
-                transparent 50%);
+            top: -150%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                135deg, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.03) 40%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0.03) 60%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(45deg);
+            opacity: 0.1;
+            transition: opacity 0.3s ease, top 0.5s ease;
             pointer-events: none;
-            z-index: 1;
+        }
+
+        .asset-icon:hover::after {
+            top: -90%;
+            opacity: 0.3;
+            animation: shine 1.5s ease forwards;
         }
 
         .asset-icon img {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(1.05) contrast(1.1);
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+            z-index: 1;
+            transition: transform 0.2s ease;
         }
 
         .asset-icon:hover img {
             transform: scale(1.08);
-            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25)) brightness(1.1) contrast(1.15);
+        }
+
+        @keyframes shine {
+            0% { top: -150%; opacity: 0.1; }
+            50% { top: -90%; opacity: 0.3; }
+            100% { top: -50%; opacity: 0; }
         }
 
         .asset-row {
@@ -296,6 +292,7 @@
             flex-direction: column;
             min-width: 0;
             flex: 1;
+            margin-right: 10px;
         }
 
         .asset-ticker {
@@ -306,6 +303,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
+            line-height: 1.2;
         }
 
         .asset-name {
@@ -317,6 +315,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
+            line-height: 1.2;
         }
 
         .value-info {
@@ -520,8 +519,8 @@
                     <table class="distribution-table">
                         <thead>
                             <tr>
-                                <th>Asset</th>
-                                <th>Value & Balance</th>
+                                <th>Name & Code</th>
+                                <th>Market Value</th>
                             </tr>
                         </thead>
                         <tbody id="assetTableBody">
@@ -552,15 +551,7 @@ const CONFIG = {
 
 // Inspiring quotes array
 const INSPIRING_QUOTES = [
-    "Time in the market beats timing the market",
-    "Invest in yourself first",
-    "Compound interest is the 8th wonder",
-    "Buy when others are fearful",
-    "Diversification is protection",
-    "Stay the course",
     "Think long term",
-    "Risk comes from not knowing",
-    "Be patient with your growth"
 ];
 
 // Asset Data
@@ -577,7 +568,7 @@ const ASSETS = [
     {
         ticker: "BBCA",
         name: "Bank Central Asia Tbk",
-        icon: "icon/bbca.png",
+        icon: "https://assets.stockbit.com/logos/companies/BBCA.png",
         type: "stock",
         currency: "IDR",
         shares: 100,
@@ -587,7 +578,7 @@ const ASSETS = [
     {
         ticker: "Dana Darurat",
         name: "Cash Emergency Fund",
-        icon: "icon/idrt.png",
+        icon: "/icon/dd.svg",
         type: "cash",
         currency: "IDR",
         amount: 571000,

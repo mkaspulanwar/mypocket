@@ -42,7 +42,7 @@ const ASSETS = [
         icon: "../icon/dd.svg",
         type: "cash",
         currency: "IDR",
-        amount: 371000,
+        amount: 571000,
         avgPrice: 1,
         currentPrice: 1
     },

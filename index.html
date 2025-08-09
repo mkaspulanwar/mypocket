@@ -16,7 +16,7 @@
 
         /* Body and Container Styles */
         body {
-            background: #ffffff;
+            background: #f5f5f5;
             color: #000000;
             display: flex;
             flex-direction: column;
@@ -171,12 +171,12 @@
 
         .distribution-table th:first-child,
         .distribution-table td:first-child {
-            width: 55%;
+            width: 60%;
         }
 
         .distribution-table th:last-child,
         .distribution-table td:last-child {
-            width: 45%;
+            width: 40%;
             text-align: right;
         }
 
@@ -196,6 +196,8 @@
             color: #000000;
             border-bottom: 1px solid #e0e0e0;
             vertical-align: middle;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
         }
 
@@ -283,7 +285,6 @@
             display: flex;
             align-items: center;
             width: 100%;
-            min-width: 0;
         }
 
         .asset-info {
@@ -291,17 +292,18 @@
             flex-direction: column;
             min-width: 0;
             flex: 1;
-            margin-right: 15px;
+            margin-right: 10px;
         }
 
         .asset-ticker {
             font-weight: 600;
             color: #000000;
             font-size: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
             line-height: 1.2;
-            word-break: break-word;
-            overflow-wrap: break-word;
         }
 
         .asset-name {
@@ -309,28 +311,30 @@
             color: #6c757d;
             font-weight: 400;
             margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
             line-height: 1.2;
-            word-break: break-word;
-            overflow-wrap: break-word;
         }
 
         .value-info {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            min-width: 120px;
-            flex-shrink: 0;
+            min-width: 0;
+            flex: 1;
         }
 
         .market-value {
             color: #000000;
             font-weight: 500;
             text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
             font-size: 15px;
-            word-break: break-word;
-            overflow-wrap: break-word;
         }
 
         .asset-balance {
@@ -339,9 +343,10 @@
             font-weight: 400;
             margin-top: 2px;
             text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
-            word-break: break-word;
-            overflow-wrap: break-word;
         }
 
         /* Media Queries */
@@ -414,10 +419,6 @@
             .market-value {
                 font-size: 14px;
             }
-
-            .value-info {
-                min-width: 100px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -434,14 +435,14 @@
             }
             
             .asset-icon {
-                width: 36px;
-                height: 36px;
-                margin-right: 10px;
+                width: 42px;
+                height: 42px;
+                margin-right: 12px;
             }
             
             .asset-icon img {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
             }
             
             body {
@@ -486,14 +487,6 @@
             .inspiring-quote {
                 font-size: 12px;
                 max-width: 150px;
-            }
-
-            .value-info {
-                min-width: 80px;
-            }
-
-            .asset-info {
-                margin-right: 10px;
             }
         }
 </style>

@@ -48,7 +48,7 @@ const ASSETS = [
     {
         ticker: "Reserve Fund",
         name: "Cash on Standby",
-        icon: "icon/dd.svg",
+        icon: "icon/idrt.png",
         type: "cash",
         currency: "IDR",
         amount: 371000,
@@ -68,7 +68,7 @@ const ASSETS = [
     {
         ticker: "Futures Long",
         name: "Binance Futures Trade",
-        icon: "/icon/binance.png",
+        icon: "/icon/okb.png",
         type: "cash",
         currency: "IDR",
         amount: 160000,

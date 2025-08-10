@@ -140,8 +140,8 @@
 
         .chart-wrapper {
             position: relative;
-            width: 210px; /* Smaller untuk mobile-only */
-            height: 210px;
+            width: 220px; /* Smaller untuk mobile-only */
+            height: 220px;
             margin: 0 auto;
         }
 
@@ -164,12 +164,8 @@
             border: 1px solid #e8e9ea;
             border-radius: 8px;
             padding: 7px 9px; /* Smaller padding */
-            box-shadow: 
-                0 2px 4px rgba(0,0,0,0.08),
-                0 1px 2px rgba(0,0,0,0.04);
             width: 100%;
             min-width: 0;
-            /* Removed hover effects */
         }
 
         .legend-color {
@@ -478,15 +474,12 @@
             },
             API_REFRESH_INTERVAL: 60000,
             CHART_COLORS: [
+                "rgba(255, 193, 7, 0.9)",
                 "rgba(255, 152, 0, 0.9)",
-                
-                
                 "rgba(244, 67, 54, 0.9)",
                 "rgba(96, 125, 255, 0.9)",
                 "rgba(0, 191, 165, 0.9)",
-                "rgba(255, 193, 7, 0.9)",
                 "rgba(156, 39, 176, 0.9)",
-                
                 "rgba(121, 85, 72, 0.9)"
             ]
         };
@@ -522,16 +515,7 @@
                 avgPrice: 8537.79,
                 currentPrice: 8400
             },
-            {
-                ticker: "Reserve Fund",
-                name: "Cash on Standby",
-                icon: "icon/dd.svg",
-                type: "cash",
-                currency: "IDR",
-                amount: 371000,
-                avgPrice: 1,
-                currentPrice: 1
-            },
+            
             {
                 ticker: "CDIA",
                 name: "Chandra Daya Investasi Tbk",
@@ -541,6 +525,26 @@
                 shares: 1000,
                 avgPrice: 190,
                 currentPrice: 1580
+            },
+            {
+                ticker: "Reserve Fund",
+                name: "Cash on Standby",
+                icon: "icon/idrt.png",
+                type: "cash",
+                currency: "IDR",
+                amount: 371500,
+                avgPrice: 1,
+                currentPrice: 1
+            },
+            {
+                ticker: "Futures Long",
+                name: "Binance Futures Trade",
+                icon: "/icon/okb.png",
+                type: "cash",
+                currency: "IDR",
+                amount: 160000,
+                avgPrice: 1,
+                currentPrice: 1
             },
             {
                 ticker: "XAU",

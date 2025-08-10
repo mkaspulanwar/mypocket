@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Base/Reset Styles */
         * {
@@ -23,7 +26,7 @@
             padding: 12px;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
         }
 
         .container {
@@ -72,7 +75,7 @@
         .author-name {
             font-size: 22px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.5px;
             color: #000000;
             font-family: 'Inter', sans-serif;
         }
@@ -92,7 +95,7 @@
         .card-brand {
             font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.2px;
             text-transform: uppercase;
             opacity: 0.7;
             margin-bottom: 20px;
@@ -120,7 +123,7 @@
             margin-bottom: 20px;
             text-align: center;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 0.3px;
+            letter-spacing: -0.3px;
             text-transform: uppercase;
             opacity: 0.8;
         }
@@ -140,11 +143,11 @@
             margin: 0 auto;
         }
 
-        /* New Badge Legend Design - Simplified */
+        /* Improved Badge Legend Design - Smaller and Cleaner */
         .chart-legend {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 6px;
             width: 100%;
             margin-top: 8px;
             justify-items: center;
@@ -153,41 +156,27 @@
         .legend-badge {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             background: #ffffff;
             border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 8px 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
+            border-radius: 8px;
+            padding: 6px 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             width: 100%;
             min-width: 0;
-            max-width: 160px;
-        }
-
-        .legend-badge:hover {
-            border-color: #ccc;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            max-width: 130px;
         }
 
         .legend-color {
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
-            margin-right: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
             flex-shrink: 0;
             border: 1px solid rgba(0,0,0,0.1);
         }
 
-        .legend-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            min-width: 0;
-        }
-
         .legend-text {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 500;
             color: #333;
             font-family: 'Inter', sans-serif;
@@ -195,11 +184,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
             flex: 1;
-            margin-right: 8px;
+            margin: 0 6px;
+            text-align: left;
         }
 
         .legend-percentage {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             color: #666;
             font-family: 'Inter', sans-serif;
@@ -219,8 +209,9 @@
             font-size: 36px; /* Size mobile */
             font-weight: 700;
             color: #000000;
-            line-height: 1.2;
+            line-height: 1.1;
             font-family: 'Inter', sans-serif;
+            letter-spacing: -1px;
         }
 
         .usd-equivalent {
@@ -245,7 +236,7 @@
             font-style: italic;
             color: #2c3e50;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 0.3px;
+            letter-spacing: -0.2px;
             max-width: 170px; /* Width mobile */
         }
 
@@ -292,6 +283,7 @@
             white-space: nowrap;
             font-family: 'Inter', sans-serif;
             font-size: 14px;
+            letter-spacing: -0.3px;
         }
 
         .distribution-table td {
@@ -304,7 +296,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Asset Icon Styles - Mobile Optimized */
+        /* Asset Icon Styles - Mobile Optimized - NO HOVER EFFECTS */
         .asset-icon {
             display: inline-flex;
             align-items: center;
@@ -324,45 +316,7 @@
                 0 -1px 2px rgba(0, 0, 0, 0.15) inset,
                 0 0 10px rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             flex-shrink: 0;
-        }
-
-        .asset-icon:hover {
-            transform: translateY(-2px) scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 6px 12px rgba(0, 0, 0, 0.4),
-                0 1px 3px rgba(255, 255, 255, 0.3) inset,
-                0 0 12px rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-        }
-
-        .asset-icon::after {
-            content: "";
-            position: absolute;
-            top: -150%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                135deg, 
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.03) 40%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                rgba(255, 255, 255, 0.03) 60%, 
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(45deg);
-            opacity: 0.1;
-            transition: opacity 0.3s ease, top 0.5s ease;
-            pointer-events: none;
-        }
-
-        .asset-icon:hover::after {
-            top: -90%;
-            opacity: 0.3;
-            animation: shine 1.5s ease forwards;
         }
 
         .asset-icon img {
@@ -371,17 +325,6 @@
             object-fit: contain;
             filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
             z-index: 1;
-            transition: transform 0.2s ease;
-        }
-
-        .asset-icon:hover img {
-            transform: scale(1.08);
-        }
-
-        @keyframes shine {
-            0% { top: -150%; opacity: 0.1; }
-            50% { top: -90%; opacity: 0.3; }
-            100% { top: -50%; opacity: 0; }
         }
 
         .asset-row {
@@ -407,6 +350,7 @@
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
             line-height: 1.2;
+            letter-spacing: -0.3px;
         }
 
         .asset-name {
@@ -431,13 +375,14 @@
 
         .market-value {
             color: #000000;
-            font-weight: 500;
+            font-weight: 600;
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
             font-size: 13px; /* Mobile size */
+            letter-spacing: -0.3px;
         }
 
         .asset-balance {
@@ -491,27 +436,26 @@
             }
 
             .chart-legend {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 6px;
+                grid-template-columns: 1fr;
+                gap: 4px;
             }
 
             .legend-badge {
-                padding: 6px 8px;
-                max-width: 120px;
+                padding: 5px 8px;
+                max-width: none;
             }
 
             .legend-text {
-                font-size: 10px;
+                font-size: 9px;
             }
 
             .legend-percentage {
-                font-size: 10px;
+                font-size: 9px;
             }
 
             .legend-color {
-                width: 8px;
-                height: 8px;
-                margin-right: 6px;
+                width: 6px;
+                height: 6px;
             }
         }
 
@@ -527,28 +471,27 @@
             }
 
             .chart-legend {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 10px;
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+                gap: 8px;
                 max-width: 450px;
             }
 
             .legend-badge {
-                padding: 10px 14px;
-                max-width: 180px;
+                padding: 7px 12px;
+                max-width: 140px;
             }
 
             .legend-text {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .legend-percentage {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .legend-color {
-                width: 12px;
-                height: 12px;
-                margin-right: 10px;
+                width: 9px;
+                height: 9px;
             }
         }
 
@@ -572,45 +515,28 @@
             }
 
             .chart-legend {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 12px;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
                 max-width: 550px;
             }
 
             .legend-badge {
-                padding: 12px 16px;
-                max-width: 200px;
+                padding: 8px 14px;
+                max-width: 150px;
             }
 
             .legend-text {
-                font-size: 13px;
+                font-size: 11px;
             }
 
             .legend-percentage {
-                font-size: 13px;
+                font-size: 11px;
             }
 
             .legend-color {
-                width: 14px;
-                height: 14px;
-                margin-right: 12px;
+                width: 10px;
+                height: 10px;
             }
-        }
-
-        /* Remove excessive animations */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .legend-badge {
-            animation: slideIn 0.3s ease forwards;
         }
     </style>
 </head>
@@ -710,7 +636,7 @@
                 icon: "/icon/bitcoin.png",
                 type: "bitcoin",
                 currency: "IDR",
-                freeSats: 45045,
+                freeSats: 45448,
                 avgPrice: 1166095031,
                 currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
                 apiId: "bitcoin" // ID untuk API CoinGecko
@@ -882,7 +808,7 @@
                     maintainAspectRatio: false,
                     interaction: {
                         intersect: false,
-                        mode: 'index'
+                        mode: 'none'
                     },
                     plugins: {
                         legend: {
@@ -904,7 +830,9 @@
                             borderWidth: 1,
                             borderColor: '#000000'
                         }
-                    }
+                    },
+                    onHover: () => {},
+                    onClick: () => {}
                 };
 
                 // Destroy existing chart if it exists
@@ -937,11 +865,9 @@
                     legendBadge.className = 'legend-badge';
                     
                     legendBadge.innerHTML = `
-                        <div class="legend-content">
-                            <div class="legend-color" style="background-color: ${color};"></div>
-                            <div class="legend-text">${asset.ticker}</div>
-                            <div class="legend-percentage">${percentage}%</div>
-                        </div>
+                        <div class="legend-color" style="background-color: ${color};"></div>
+                        <div class="legend-text">${asset.ticker}</div>
+                        <div class="legend-percentage">${percentage}%</div>
                     `;
 
                     legendContainer.appendChild(legendBadge);

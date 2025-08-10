@@ -81,7 +81,7 @@ const ASSETS = [
         icon: "/icon/gold.svg",
         type: "gold",
         currency: "IDR",
-        grams: 0,
+        grams: 1,
         avgPrice: 1150000,
         currentPrice: 1950000, // Harga default emas per gram dalam IDR
         apiId: "gold" // ID untuk API

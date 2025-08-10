@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.944882in" height="0.944882in" version="1.1" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 152 152"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+   <clipPath id="id0">
+    <path d="M76 0c42,0 76,34 76,76 0,42 -34,76 -76,76 -42,0 -76,-34 -76,-76 0,-42 34,-76 76,-76z"/>
+   </clipPath>
+   <clipPath id="id1">
+    <path d="M76 0c42,0 76,34 76,76 0,42 -34,76 -76,76 -42,0 -76,-34 -76,-76 0,-42 34,-76 76,-76z"/>
+   </clipPath>
+    <clipPath id="id2">
+    </clipPath>
+    <clipPath id="id3">
+     <path d="M76 0c42,0 76,34 76,76 0,42 -34,76 -76,76 -42,0 -76,-34 -76,-76 0,-42 34,-76 76,-76z"/>
+    </clipPath>
+    <clipPath id="id4">
+    </clipPath>
+    <clipPath id="id5">
+     <path d="M76 0c42,0 76,34 76,76 0,42 -34,76 -76,76 -42,0 -76,-34 -76,-76 0,-42 34,-76 76,-76z"/>
+    </clipPath>
+    <clipPath id="id6">
+    </clipPath>
+    <clipPath id="id7">
+     <path d="M76 0c42,0 76,34 76,76 0,42 -34,76 -76,76 -42,0 -76,-34 -76,-76 0,-42 34,-76 76,-76z"/>
+    </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g clip-path="url(#id0)">
+   <polygon fill="#FDE8E9" points="0,0 152,0 152,152 0,152 "/>
+  </g>
+  <g clip-path="url(#id1)">
+   <g id="_1565777275184">
+    <polygon id="1" fill="#EA1922" points="-36,-120 109,-120 109,-28 -36,-28 "/>
+   </g>
+   <g clip-path="url(#id2)">
+    <image x="-132" y="-102" width="145.431" height="92.8397" xlink:href="DH002_Images\DH002_ImgID1.png"/>
+   </g>
+   <g clip-path="url(#id3)">
+    <path fill="#EE4047" d="M-46 152l55 0c17,-137 165,-129 202,-43 5,13 5,32 11,42 4,-4 2,0 3,-9 0,-11 -6,-31 -10,-41 -57,-133 -261,-93 -261,51z"/>
+    <path fill="#F9BABD" d="M156 234c-49,0 -90,-36 -90,-81 0,-44 41,-80 90,-80 50,0 91,36 91,80 0,45 -41,81 -91,81z"/>
+   </g>
+   <g clip-path="url(#id4)">
+    <image x="312" y="-162" width="293.007" height="75.1299" xlink:href="DH002_Images\DH002_ImgID2.png"/>
+   </g>
+   <g clip-path="url(#id5)">
+   </g>
+   <g clip-path="url(#id6)">
+    <image x="154" y="-103" width="68.6908" height="84.2532" xlink:href="DH002_Images\DH002_ImgID3.png"/>
+   </g>
+   <g clip-path="url(#id7)">
+    <path fill="#F26A6F" d="M157 249c-49,0 -90,-36 -90,-80 0,-45 41,-81 90,-81 50,0 90,36 90,81 0,44 -40,80 -90,80z"/>
+    <path fill="#EA1922" d="M1 146l45 0c13,-111 133,-104 163,-34 4,10 4,25 9,34 3,-4 2,-1 2,-8 1,-9 -5,-25 -8,-33 -46,-108 -211,-76 -211,41z"/>
+   </g>
+  </g>
+  <path fill="none" d="M76 0c42,0 76,34 76,76 0,42 -34,76 -76,76 -42,0 -76,-34 -76,-76 0,-42 34,-76 76,-76z"/>
+ </g>
+</svg>

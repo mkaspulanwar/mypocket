@@ -66,7 +66,7 @@
                 currentPrice: 1580
             },
             {
-                ticker: "Reserve Fund",
+                ticker: "Fund",
                 name: "Cash on Standby",
                 icon: "icon/idrt.png",
                 type: "cash",
@@ -76,7 +76,7 @@
                 currentPrice: 1
             },
             {
-                ticker: "Futures Long",
+                ticker: "Futures",
                 name: "Binance Futures Trade",
                 icon: "/icon/future.svg",
                 type: "cash",
@@ -86,8 +86,8 @@
                 currentPrice: 1
             },
             {
-                ticker: "XAU",
-                name: "Paxos & Antam Gold",
+                ticker: "Gold",
+                name: "Paxos and Antam Gold",
                 icon: "/icon/gold.svg",
                 type: "gold",
                 currency: "IDR",

@@ -339,7 +339,7 @@
         .asset-ticker {
             font-weight: 600;
             color: #000000;
-            font-size: 13px;
+            font-size: 14px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -376,7 +376,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
             letter-spacing: 0px;
         }
 

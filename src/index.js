@@ -41,7 +41,7 @@
                 currency: "IDR",
                 freeSats: 55229,
                 avgPrice: 1166095031,
-                currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
+                currentPrice: 1900000000, // Harga default Bitcoin dalam IDR
                 apiId: "bitcoin" // ID untuk API CoinGecko
             },
             {

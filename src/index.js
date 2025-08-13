@@ -66,7 +66,7 @@
                 currentPrice: 1675
             },
             {
-                ticker: "Fund",
+                ticker: "Rupiah",
                 name: "Cash on Standby",
                 icon: "icon/idrt.png",
                 type: "cash",

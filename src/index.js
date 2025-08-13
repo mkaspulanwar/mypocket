@@ -52,7 +52,7 @@
                 currency: "IDR",
                 shares: 100,
                 avgPrice: 8537.79,
-                currentPrice: 8850
+                currentPrice: 8925
             },
             
             {
@@ -63,7 +63,7 @@
                 currency: "IDR",
                 shares: 1000,
                 avgPrice: 190,
-                currentPrice: 1550
+                currentPrice: 1675
             },
             {
                 ticker: "Fund",
@@ -71,7 +71,7 @@
                 icon: "icon/idrt.png",
                 type: "cash",
                 currency: "IDR",
-                amount: 150000,
+                amount: 130000,
                 avgPrice: 1,
                 currentPrice: 1
             },
@@ -81,7 +81,7 @@
                 icon: "/icon/future.svg",
                 type: "cash",
                 currency: "IDR",
-                amount: 100000,
+                amount: 150000,
                 avgPrice: 1,
                 currentPrice: 1
             },

@@ -52,7 +52,7 @@
                 currency: "IDR",
                 shares: 100,
                 avgPrice: 8537.79,
-                currentPrice: 8925
+                currentPrice: 8775
             },
             
             {
@@ -63,7 +63,7 @@
                 currency: "IDR",
                 shares: 1000,
                 avgPrice: 190,
-                currentPrice: 1675
+                currentPrice: 1635
             },
             {
                 ticker: "Rupiah",

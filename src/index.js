@@ -39,7 +39,7 @@
                 icon: "/icon/bitcoin.png",
                 type: "bitcoin",
                 currency: "IDR",
-                freeSats: 55229,
+                freeSats: 55184,
                 avgPrice: 1166095031,
                 currentPrice: 1900000000, // Harga default Bitcoin dalam IDR
                 apiId: "bitcoin" // ID untuk API CoinGecko
@@ -81,7 +81,7 @@
                 icon: "/icon/future.svg",
                 type: "cash",
                 currency: "IDR",
-                amount: 150000,
+                amount: 100000,
                 avgPrice: 1,
                 currentPrice: 1
             },

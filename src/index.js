@@ -52,7 +52,7 @@
                 currency: "IDR",
                 shares: 100,
                 avgPrice: 8537.79,
-                currentPrice: 8775
+                currentPrice: 8700
             },
             
             {
@@ -63,7 +63,17 @@
                 currency: "IDR",
                 shares: 1000,
                 avgPrice: 190,
-                currentPrice: 1635
+                currentPrice: 1560
+            },
+            {
+                ticker: "PZZA",
+                name: "Sarimelati Kencana Tbk",
+                icon: "https://assets.stockbit.com/logos/companies/PZZA.png",
+                type: "stock",
+                currency: "IDR",
+                shares: 500,
+                avgPrice: 192.89,
+                currentPrice: 194
             },
             {
                 ticker: "Rupiah",
@@ -71,7 +81,7 @@
                 icon: "icon/idrt.png",
                 type: "cash",
                 currency: "IDR",
-                amount: 130000,
+                amount: 34158,
                 avgPrice: 1,
                 currentPrice: 1
             },

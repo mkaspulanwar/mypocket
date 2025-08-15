@@ -1,7 +1,7 @@
 // Configuration Constants
         const CONFIG = {
             EXCHANGE_RATES: {
-                USD_TO_IDR: 16300
+                USD_TO_IDR: 16171
             },
             CONSTANTS: {
                 SATS_TO_BTC: 100000000,
@@ -185,7 +185,7 @@
         // Asset Calculator
         const AssetCalculator = {
             calculateAssetValues: () => {
-                return ASSETS.map(asset => {
+                const calculatedAssets = ASSETS.map(asset => {
                     const balance = Utils.formatBalance(asset);
                     const marketValue = Utils.calculateMarketValue(asset);
 
@@ -198,6 +198,9 @@
                         type: asset.type
                     };
                 });
+
+                // Otomatis sort berdasarkan market value dari terbesar ke terkecil
+                return calculatedAssets.sort((a, b) => b.marketValue - a.marketValue);
             }
         };
 
@@ -306,6 +309,7 @@
                 
                 tableBody.innerHTML = '';
 
+                // Asset sudah tersorted dari AssetCalculator.calculateAssetValues()
                 calculatedAssets.forEach(asset => {
                     const row = document.createElement('tr');
                     

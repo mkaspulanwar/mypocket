@@ -140,7 +140,7 @@
             grid-template-columns: 1fr 1fr; /* Always 2 columns */
             gap: 6px; /* Smaller gap */
             width: 100%;
-            max-width: 300px; /* Smaller max-width */
+            max-width: 400px; /* Smaller max-width */
             margin-top: 8px;
             justify-items: stretch;
         }

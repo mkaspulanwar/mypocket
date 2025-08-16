@@ -149,28 +149,29 @@ const Utils = {
                 return 0;
         }
     },
-
     formatTimestamp: (timestamp) => {
         if (!timestamp) return 'Loading...';
         
         const date = new Date(timestamp);
+        
+        // Format waktu HH:mm
         const options = {
             timeZone: CONFIG.LAST_UPDATE.timezone,
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
         };
-        
         const timeFormatter = new Intl.DateTimeFormat('id-ID', options);
-        const dateOptions = {
-            timeZone: CONFIG.LAST_UPDATE.timezone,
-            day: '2-digit',
-            month: '2-digit',
-            year: '2-digit'
-        };
-        const dateFormatter = new Intl.DateTimeFormat('id-ID', dateOptions);
         
-        return `${timeFormatter.format(date)}<br>${dateFormatter.format(date)}`;
+        // Format tanggal dd/MM/yyyy
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        
+        const formattedDate = `${day}/${month}/${year}`;
+        const formattedTime = timeFormatter.format(date);
+        
+        return `${formattedTime}<br>${formattedDate}`;
     },
 
     updateLastUpdateTimestamp: () => {

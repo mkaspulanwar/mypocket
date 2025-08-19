@@ -20,7 +20,7 @@ const CONFIG = {
         "rgba(0, 191, 165, 0.9)",
         "rgba(156, 39, 176, 0.9)",
     ],
-    MAX_CHART_ASSETS: 5 // Maksimal 5 asset di chart, sisanya masuk "Lainnya"
+    MAX_CHART_ASSETS: 3 // Maksimal 5 asset di chart, sisanya masuk "Lainnya"
 };
 
 // Inspiring quotes array

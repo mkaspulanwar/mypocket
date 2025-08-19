@@ -13,14 +13,12 @@ const CONFIG = {
     },
     API_REFRESH_INTERVAL: 60000,
     CHART_COLORS: [
-        "rgba(255, 193, 7, 0.9)",
         "rgba(255, 152, 0, 0.9)",
         "rgba(244, 67, 54, 0.9)",
         "rgba(96, 125, 255, 0.9)",
         "rgba(0, 191, 165, 0.9)",
-        "rgba(156, 39, 176, 0.9)",
     ],
-    MAX_CHART_ASSETS: 5 // Maksimal 5 asset di chart, sisanya masuk "Lainnya"
+    MAX_CHART_ASSETS: 3 
 };
 
 // Inspiring quotes array
@@ -39,7 +37,7 @@ const ASSETS = [
         icon: "/icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
-        freeSats: 55184,
+        freeSats: 55184 - 10000, // 10000 sats dimiliki oleh Antasari programming team
         avgPrice: 1166095031,
         currentPrice: 1900000000, // Harga default Bitcoin dalam IDR
         apiId: "bitcoin" // ID untuk API CoinGecko
@@ -52,7 +50,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8700
+        currentPrice: 8500
     },
     
     {
@@ -63,7 +61,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 1000,
         avgPrice: 190,
-        currentPrice: 1560
+        currentPrice: 1515
     },
     {
         ticker: "PZZA",
@@ -73,7 +71,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 500,
         avgPrice: 192.89,
-        currentPrice: 194
+        currentPrice: 220
     },
     {
         ticker: "Rupiah",

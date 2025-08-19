@@ -25,7 +25,6 @@ const CONFIG = {
 const INSPIRING_QUOTES = [
     "Think long term",
     "Spend less than you earn",
-    "Invest in assets, not toys",
     "Hold cash, buy value",
 ];
 

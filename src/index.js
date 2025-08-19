@@ -37,7 +37,7 @@ const ASSETS = [
         icon: "icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
-        freeSats: 55184 - 10000,
+        freeSats: 55184 - 10000, //10000 sats punya APT
         avgPrice: 1166095031,
         currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
         apiId: "bitcoin" // ID untuk API CoinGecko
@@ -86,7 +86,7 @@ const ASSETS = [
     {
         ticker: "Futures",
         name: "Binance Futures Trade",
-        icon: "icon/future.svg",
+        icon: "icon/black.png",
         type: "cash",
         currency: "IDR",
         amount: 130000,

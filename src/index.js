@@ -34,7 +34,7 @@ const ASSETS = [
     {
         ticker: "Bitcoin",
         name: "Portable Commodity",
-        icon: "/icon/bitcoin.png",
+        icon: "icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
         freeSats: 55184 - 10000,
@@ -86,7 +86,7 @@ const ASSETS = [
     {
         ticker: "Futures",
         name: "Binance Futures Trade",
-        icon: "/icon/future.svg",
+        icon: "icon/future.svg",
         type: "cash",
         currency: "IDR",
         amount: 130000,
@@ -96,7 +96,7 @@ const ASSETS = [
     {
         ticker: "Gold",
         name: "Paxos and Antam Gold",
-        icon: "/icon/gold.svg",
+        icon: "icon/gold.svg",
         type: "gold",
         currency: "IDR",
         grams: 0,

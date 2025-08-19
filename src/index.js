@@ -13,12 +13,10 @@ const CONFIG = {
     },
     API_REFRESH_INTERVAL: 60000,
     CHART_COLORS: [
-        "rgba(255, 193, 7, 0.9)",
         "rgba(255, 152, 0, 0.9)",
         "rgba(244, 67, 54, 0.9)",
         "rgba(96, 125, 255, 0.9)",
         "rgba(0, 191, 165, 0.9)",
-        "rgba(156, 39, 176, 0.9)",
     ],
     MAX_CHART_ASSETS: 3 // Maksimal 5 asset di chart, sisanya masuk "Lainnya"
 };

@@ -41,7 +41,7 @@ const ASSETS = [
         currency: "IDR",
         freeSats: 55184 - 10000,
         avgPrice: 1166095031,
-        currentPrice: 1900000000, // Harga default Bitcoin dalam IDR
+        currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
         apiId: "bitcoin" // ID untuk API CoinGecko
     },
     {
@@ -52,7 +52,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8700
+        currentPrice: 8500
     },
     
     {
@@ -63,7 +63,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 1000,
         avgPrice: 190,
-        currentPrice: 1560
+        currentPrice: 1515
     },
     {
         ticker: "PZZA",
@@ -73,7 +73,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 500,
         avgPrice: 192.89,
-        currentPrice: 194
+        currentPrice: 220
     },
     {
         ticker: "Rupiah",

@@ -83,16 +83,6 @@ const ASSETS = [
         currentPrice: 1
     },
     {
-        ticker: "Futures",
-        name: "Binance Futures Trade",
-        icon: "icon/black.png",
-        type: "cash",
-        currency: "IDR",
-        amount: 130000,
-        avgPrice: 1,
-        currentPrice: 1
-    },
-    {
         ticker: "Gold",
         name: "Paxos and Antam Gold",
         icon: "icon/gold.svg",

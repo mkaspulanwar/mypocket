@@ -49,7 +49,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8500
+        currentPrice: 8525
     },
     
     {
@@ -58,19 +58,19 @@ const ASSETS = [
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
         type: "stock",
         currency: "IDR",
-        shares: 1000,
+        shares: 700,
         avgPrice: 190,
         currentPrice: 1515
     },
     {
-        ticker: "PZZA",
-        name: "Sarimelati Kencana Tbk",
-        icon: "https://assets.stockbit.com/logos/companies/PZZA.png",
+        ticker: "SIMP",
+        name: "Salim Ivomas Pratama Tbk",
+        icon: "https://assets.stockbit.com/logos/companies/SIMP.png",
         type: "stock",
         currency: "IDR",
-        shares: 500,
-        avgPrice: 192.89,
-        currentPrice: 220
+        shares: 800,
+        avgPrice: 685,
+        currentPrice: 685
     },
     {
         ticker: "Rupiah",
@@ -78,7 +78,7 @@ const ASSETS = [
         icon: "icon/idrt.png",
         type: "cash",
         currency: "IDR",
-        amount: 34158,
+        amount: 114453,
         avgPrice: 1,
         currentPrice: 1
     },

@@ -49,7 +49,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8525
+        currentPrice: 8550
     },
     
     {
@@ -60,7 +60,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 700,
         avgPrice: 190,
-        currentPrice: 1515
+        currentPrice: 1455
     },
     {
         ticker: "SIMP",
@@ -70,7 +70,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 800,
         avgPrice: 685,
-        currentPrice: 685
+        currentPrice: 650
     },
     {
         ticker: "Rupiah",
@@ -78,7 +78,7 @@ const ASSETS = [
         icon: "icon/idrt.png",
         type: "cash",
         currency: "IDR",
-        amount: 114453,
+        amount: 34500,
         avgPrice: 1,
         currentPrice: 1
     },

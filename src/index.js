@@ -49,7 +49,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8550
+        currentPrice: 8450
     },
     
     {
@@ -60,7 +60,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 700,
         avgPrice: 190,
-        currentPrice: 1455
+        currentPrice: 1485
     },
     {
         ticker: "SIMP",

@@ -36,7 +36,7 @@ const ASSETS = [
         icon: "icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
-        freeSats: 7796 + 49781 - 10000, //10000 sats punya APT
+        freeSats: 9388 + 49781 - 10000, //10000 sats punya APT
         avgPrice: 1166095031,
         currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
         apiId: "bitcoin" // ID untuk API CoinGecko

@@ -1,6 +1,6 @@
 {
-  "name": "Pocket",
-  "short_name": "MyPocket",
+  "name": "MyPocket",
+  "short_name": "Pocket",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

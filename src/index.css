@@ -1,5 +1,4 @@
-/* Base/Reset Styles */
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -97,96 +96,6 @@
         .assets-card {
             width: 100%; /* Selalu full width */
             min-width: unset;
-        }
-
-        /* Donut Chart Card - New Design */
-        .chart-card {
-            width: 100%;
-            min-width: unset;
-            position: relative;
-            padding: 20px;
-        }
-
-        .chart-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 25px;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        .chart-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            gap: 15px;
-        }
-
-        .chart-wrapper {
-            position: relative;
-            width: 220px; /* Smaller untuk mobile-only */
-            height: 220px;
-            margin: 0 auto;
-        }
-
-        /* Improved Badge Legend Design - Always 2 Columns - NO HOVER */
-        .chart-legend {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Always 2 columns */
-            gap: 6px; /* Smaller gap */
-            width: 100%;
-            max-width: 400px; /* Smaller max-width */
-            margin-top: 8px;
-            justify-items: stretch;
-        }
-
-        .legend-badge {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border: 1px solid #e8e9ea;
-            border-radius: 8px;
-            padding: 7px 9px; /* Smaller padding */
-            width: 100%;
-            min-width: 0;
-        }
-
-        .legend-color {
-            width: 8px; /* Smaller */
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            border: 1px solid rgba(0,0,0,0.15);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .legend-text {
-            font-size: 10px; /* Smaller */
-            font-weight: 600;
-            color: #1a1d29;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex: 1;
-            margin: 0 8px;
-            text-align: left;
-            letter-spacing: -0.1px;
-        }
-
-        .legend-percentage {
-            font-size: 10px; /* Smaller */
-            font-weight: 700;
-            color: #2d3748;
-            font-family: 'Inter', sans-serif;
-            flex-shrink: 0;
-            letter-spacing: -0.2px;
         }
 
         /* Assets Display - Mobile Optimized */
@@ -370,7 +279,7 @@
 
         .market-value {
             color: #000000;
-            font-weight: 500;
+            font-weight: 600;
             text-align: right;
             white-space: nowrap;
             overflow: hidden;

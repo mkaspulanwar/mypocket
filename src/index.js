@@ -11,14 +11,7 @@ const CONFIG = {
         timestamp: null,
         timezone: 'Asia/Makassar'
     },
-    API_REFRESH_INTERVAL: 60000,
-    CHART_COLORS: [
-        "rgba(255, 152, 0, 0.9)",
-        "rgba(244, 67, 54, 0.9)",
-        "rgba(96, 125, 255, 0.9)",
-        "rgba(0, 191, 165, 0.9)",
-    ],
-    MAX_CHART_ASSETS: 3 // Maksimal 5 asset di chart, sisanya masuk "Lainnya"
+    API_REFRESH_INTERVAL: 60000
 };
 
 // Inspiring quotes array
@@ -93,9 +86,6 @@ const ASSETS = [
         currentPrice: 1350000 // Harga manual emas per gram dalam IDR
     }
 ];
-
-// Global chart variable
-let assetChart = null;
 
 // Utility Functions
 const Utils = {
@@ -189,136 +179,6 @@ const AssetCalculator = {
 
         // Otomatis sort berdasarkan market value dari terbesar ke terkecil
         return calculatedAssets.sort((a, b) => b.marketValue - a.marketValue);
-    },
-
-    prepareChartData: (calculatedAssets) => {
-        // Filter out assets with zero value
-        const assetsWithValue = calculatedAssets.filter(asset => asset.marketValue > 0);
-        
-        if (assetsWithValue.length <= CONFIG.MAX_CHART_ASSETS) {
-            // Jika total asset <= 5, tampilkan semua
-            return assetsWithValue;
-        }
-
-        // Ambil 5 asset terbesar
-        const topAssets = assetsWithValue.slice(0, CONFIG.MAX_CHART_ASSETS);
-        
-        // Hitung total nilai dari asset yang tidak masuk top 5
-        const remainingAssets = assetsWithValue.slice(CONFIG.MAX_CHART_ASSETS);
-        const othersValue = remainingAssets.reduce((sum, asset) => sum + asset.marketValue, 0);
-        
-        // Jika ada asset lain, tambahkan kategori "Lainnya"
-        if (othersValue > 0) {
-            const othersAsset = {
-                name: "Asset Lainnya",
-                ticker: "Lainnya",
-                icon: "/icon/others.svg", // Bisa diganti dengan icon yang sesuai
-                balance: `${remainingAssets.length} assets`,
-                marketValue: othersValue,
-                type: "others"
-            };
-            
-            topAssets.push(othersAsset);
-        }
-
-        return topAssets;
-    }
-};
-
-// Chart Handler
-const ChartHandler = {
-    createDonutChart: (calculatedAssets) => {
-        const ctx = document.getElementById('assetChart');
-        if (!ctx) return;
-
-        // Prepare data untuk chart (5 terbesar + lainnya jika ada)
-        const chartAssets = AssetCalculator.prepareChartData(calculatedAssets);
-        const totalValue = chartAssets.reduce((sum, asset) => sum + asset.marketValue, 0);
-        
-        if (totalValue === 0) return;
-
-        const chartData = {
-            labels: chartAssets.map(asset => asset.ticker),
-            datasets: [{
-                data: chartAssets.map(asset => asset.marketValue),
-                backgroundColor: CONFIG.CHART_COLORS.slice(0, chartAssets.length),
-                borderColor: '#000000',
-                borderWidth: 1,
-                hoverBackgroundColor: CONFIG.CHART_COLORS.slice(0, chartAssets.length),
-                hoverBorderColor: '#000000',
-                hoverBorderWidth: 2
-            }]
-        };
-
-        const chartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                intersect: false,
-                mode: 'none'
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    enabled: false
-                }
-            },
-            cutout: '70%',
-            animation: {
-                animateScale: false,
-                animateRotate: true,
-                duration: 800,
-                easing: 'easeOutQuart'
-            },
-            elements: {
-                arc: {
-                    borderWidth: 1,
-                    borderColor: '#000000'
-                }
-            },
-            onHover: () => {},
-            onClick: () => {}
-        };
-
-        // Destroy existing chart if it exists
-        if (assetChart) {
-            assetChart.destroy();
-        }
-
-        // Create new chart
-        assetChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: chartData,
-            options: chartOptions
-        });
-
-        // Create custom legend
-        ChartHandler.createCustomLegend(chartAssets, totalValue);
-    },
-
-    createCustomLegend: (chartAssets, totalValue) => {
-        const legendContainer = document.getElementById('chartLegend');
-        if (!legendContainer) return;
-
-        legendContainer.innerHTML = '';
-
-        chartAssets.forEach((asset, index) => {
-            const percentage = ((asset.marketValue / totalValue) * 100).toFixed(1);
-            const color = CONFIG.CHART_COLORS[index];
-
-            const legendBadge = document.createElement('div');
-            legendBadge.className = 'legend-badge';
-            
-            legendBadge.innerHTML = `
-                <div class="legend-color" style="background-color: ${color};"></div>
-                <div class="legend-text">${asset.ticker}</div>
-                <div class="legend-percentage">${percentage}%</div>
-            `;
-
-            legendContainer.appendChild(legendBadge);
-        });
     }
 };
 
@@ -538,7 +398,6 @@ const Dashboard = {
             UIRenderer.updatePortfolioSummary(calculatedAssets);
             UIRenderer.displayLastUpdate();
             UIRenderer.updateQuote();
-            ChartHandler.createDonutChart(calculatedAssets);
             console.log("Dashboard initialized successfully");
         } catch (error) {
             console.error("Error initializing dashboard:", error);

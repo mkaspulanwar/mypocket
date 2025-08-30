@@ -66,7 +66,7 @@ const ASSETS = [
         currentPrice: 640
     },
     {
-        ticker: "RDN Cash",
+        ticker: "RDN IDR",
         name: "Rekening Dana Nasabah",
         icon: "icon/idrt.png",
         type: "cash",

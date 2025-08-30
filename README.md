@@ -9,15 +9,25 @@ Dengan mypocket, Anda dapat melihat portofolio aset digital maupun konvensional 
 mypocket adalah aplikasi dashboard manajemen aset yang berfungsi sebagai "kantong digital" pribadi.  
 Di sini Anda bisa menyimpan informasi mengenai **crypto, saham, maupun aset lainnya** dalam bentuk ringkasan yang rapi, terstruktur, dan mudah dipahami.
 
----
+## ⚡ Cara Menjalankan Project
 
+Jalankan perintah berikut di terminal:
+
+```bash
+# 1. Clone repository ini
+git clone https://github.com/username/mypocket.git
+
+# 2. Masuk ke folder project
+cd mypocket
+
+# 3. Buka file index.html langsung di browser
+# atau gunakan live server (misalnya VSCode Live Server Extension)
+```
 ## 🎯 Kegunaan
 - Menampilkan **total balance** aset dalam rupiah dan konversi ke USD.
 - Memberikan **ringkasan visual** portofolio lewat tabel & diagram donat.
 - Memudahkan Anda untuk **melacak aset terbesar** dan proporsinya.
 - Menjadi dashboard **all-in-one** untuk portofolio pribadi.
-
----
 
 ## ✨ Fitur Utama
 1. **Papan Nama**  
@@ -40,40 +50,13 @@ Di sini Anda bisa menyimpan informasi mengenai **crypto, saham, maupun aset lain
    - Visualisasi proporsi aset.  
    - Maksimal 4 bagian: **3 aset terbesar** + **1 gabungan lainnya**.
 
----
-
 ## 📖 Roadmap
 - [x] Versi awal (Native coding)  
 - [ ] Pindah ke framework JavaScript (Next.js / React)  
 - [ ] Build versi **Flutter** untuk mobile (Android & iOS)  
-
----
 
 ## 🤝 Etika Menggunakan Project Ini
 1. **Gunakan dengan bijak** – project ini dibuat untuk pembelajaran dan pengembangan personal.  
 2. **Boleh di-*fork* atau dikembangkan**, namun sertakan atribusi kepada repository asli.  
 3. **Dilarang menjual ulang project ini** tanpa izin.  
 4. Jika menggunakan sebagian kode, cantumkan **credit / referensi** ke repo ini.  
-
----
-
-## 🔑 Teknologi yang Digunakan
-- **Native HTML, CSS, JavaScript** (versi awal)  
-- Rencana upgrade ke **JavaScript framework (React/Next.js)**  
-- Target akhir ke **Flutter** untuk pengalaman multi-platform.  
-
----
-
-## ⚡ Cara Menjalankan Project
-
-Jalankan perintah berikut di terminal:
-
-```bash
-# 1. Clone repository ini
-git clone https://github.com/username/mypocket.git
-
-# 2. Masuk ke folder project
-cd mypocket
-
-# 3. Buka file index.html langsung di browser
-# atau gunakan live server (misalnya VSCode Live Server Extension)

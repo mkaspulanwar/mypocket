@@ -36,7 +36,7 @@ const ASSETS = [
         icon: "icon/bitcoin.png",
         type: "bitcoin",
         currency: "IDR",
-        freeSats: 55184 - 10000, //10000 sats punya APT
+        freeSats: 10488 + 49781 - 10000, //10000 sats punya APT
         avgPrice: 1166095031,
         currentPrice: 1500000000, // Harga default Bitcoin dalam IDR
         apiId: "bitcoin" // ID untuk API CoinGecko
@@ -49,7 +49,7 @@ const ASSETS = [
         currency: "IDR",
         shares: 100,
         avgPrice: 8537.79,
-        currentPrice: 8475
+        currentPrice: 8075
     },
     
     {
@@ -58,9 +58,9 @@ const ASSETS = [
         icon: "https://assets.stockbit.com/logos/companies/TPIA.png?version=1750055121325821609",
         type: "stock",
         currency: "IDR",
-        shares: 700,
+        shares: 500,
         avgPrice: 190,
-        currentPrice: 1530
+        currentPrice: 1480
     },
     {
         ticker: "SIMP",
@@ -69,8 +69,8 @@ const ASSETS = [
         type: "stock",
         currency: "IDR",
         shares: 800,
-        avgPrice: 685,
-        currentPrice: 650
+        avgPrice: 686.03,
+        currentPrice: 640
     },
     {
         ticker: "Rupiah",
@@ -78,7 +78,7 @@ const ASSETS = [
         icon: "icon/idrt.png",
         type: "cash",
         currency: "IDR",
-        amount: 34500,
+        amount: 0,
         avgPrice: 1,
         currentPrice: 1
     },

@@ -5,274 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<style>
-        /* Base/Reset Styles */
+<style>/* Base/Reset Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body and Container Styles - Doodle Style */
+        /* Body and Container Styles - Mobile Layout for All */
         body {
-            background: #fef7ed;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 183, 77, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
-            color: #1e293b;
+            background: #1a1a1a;
+            color: #000000;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px;
+            padding: 12px;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.05'%3E%3Ccircle cx='7' cy='7' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: -1;
         }
 
         .container {
-            max-width: 400px;
+            max-width: 400px; /* Mobile width untuk semua ukuran layar */
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 6px;
             position: relative;
-            margin-top: 8px;
-            padding: 0 4px;
+            margin-top: 10px;
+            padding: 0 5px;
         }
 
-        /* Layout Elements */
+        /* Layout Elements - Always Stack Vertically */
         .top-row {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            flex-direction: column; /* Selalu vertikal */
+            gap: 6px;
             width: 100%;
         }
 
-        /* Card Styles - Doodle Design */
+        /* Card Styles - Mobile Optimized */
         .card {
-            background: #ffffff;
-            border: 3px solid #1e293b;
-            border-radius: 16px;
-            padding: 24px;
+            background-color: #2a2a2a;
+            border: 1px solid #000000;
+            border-radius: 12px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            box-shadow: 
-                8px 8px 0px #f97316,
-                0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 12px;
-            position: relative;
-            overflow: hidden;
-            transform: rotate(-0.5deg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 6px;
         }
 
-        .card:nth-child(even) {
-            transform: rotate(0.3deg);
-            box-shadow: 
-                8px 8px 0px #3b82f6,
-                0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #fbbf24 0%, #f59e0b 100%);
-            border-radius: 50%;
-            opacity: 0.6;
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            bottom: 15px;
-            left: 20px;
-            width: 15px;
-            height: 15px;
-            background: #10b981;
-            border-radius: 50%;
-            opacity: 0.4;
-        }
-
-        /* Header Styles - Doodle Style */
+        /* Header Styles - Reduced Height */
         .header-section {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
             width: 100%;
-            border: 3px solid #1e293b;
-            border-radius: 20px;
-            padding: 20px 24px;
-            background: #ffffff;
-            box-shadow: 
-                6px 6px 0px #ec4899,
-                0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            transform: rotate(0.8deg);
-        }
-
-        .header-section::before {
-            content: '✨';
-            position: absolute;
-            top: 8px;
-            left: 15px;
-            font-size: 16px;
-            opacity: 0.7;
-        }
-
-        .header-section::after {
-            content: '🎨';
-            position: absolute;
-            top: 8px;
-            right: 15px;
-            font-size: 16px;
-            opacity: 0.7;
+            border: 1px solid #000000;
+            border-radius: 12px;
+            padding: 14px 20px; /* Reduced padding */
+            background-color: #2a2a2a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .author-name {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            letter-spacing: -0.2px;
-            color: #1e293b;
-            font-family: 'Google Sans', sans-serif;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Balance Card - Mastercard Style */
+        /* Balance Card - Mobile Style for All */
         .balance-card {
-            width: 100%;
-            height: 240px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%);
-            border: 3px solid #1e293b;
+            width: 100%; /* Selalu full width */
+            min-width: unset;
+            height: 220px; /* Height mobile */
+            background: #2a2a2a;
+            border: 1px solid #000000;
             color: #ffffff;
             position: relative;
             overflow: hidden;
-            box-shadow: 
-                8px 8px 0px #dc2626,
-                0 8px 32px rgba(220, 38, 38, 0.3),
-                0 4px 16px rgba(0, 0, 0, 0.2);
-            transform: rotate(-0.8deg);
-        }
-
-        .balance-card::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: #ff5722;
-            border-radius: 50%;
-            z-index: 2;
-        }
-
-        .balance-card::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            width: 40px;
-            height: 40px;
-            background: #ffc107;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        /* Mastercard Holographic Effect */
-        .balance-card .card-hologram {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                transparent 30%, 
-                rgba(255, 255, 255, 0.1) 50%, 
-                transparent 70%);
-            animation: shimmer 3s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
         }
 
         .card-brand {
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            opacity: 0.9;
-            margin-bottom: 24px;
-            color: rgba(255, 255, 255, 0.8);
-            font-family: 'Google Sans', sans-serif;
-            position: relative;
-            z-index: 3;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
         }
 
         .assets-card {
-            width: 100%;
-            background: #ffffff;
+            width: 100%; /* Selalu full width */
+            min-width: unset;
         }
 
-        /* Assets Display */
+        /* Assets Display - Mobile Optimized */
         .total-assets-container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            margin: 32px 0;
-            position: relative;
-            z-index: 3;
+            margin: 25px 0;
         }
 
         .total-assets {
             font-size: 36px;
             font-weight: 700;
             color: #ffffff;
-            line-height: 1.1;
-            font-family: 'Google Sans', sans-serif;
-            letter-spacing: -1px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 3;
+            line-height: 1.2;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.5px;
         }
 
         .usd-equivalent {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-top: 8px;
-            font-weight: 500;
-            font-family: 'Google Sans', sans-serif;
-            letter-spacing: -0.1px;
-            position: relative;
-            z-index: 3;
+            color: #cccccc;
+            margin-top: 5px;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.2px;
         }
 
         .card-footer {
@@ -280,102 +145,76 @@
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            position: relative;
-            z-index: 3;
+            opacity: 0.8;
         }
 
         .inspiring-quote {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
             font-style: italic;
-            color: rgba(255, 255, 255, 0.9);
-            font-family: 'Google Sans', sans-serif;
-            letter-spacing: 0.2px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
             max-width: 170px;
         }
 
         .last-update {
-            font-size: 9px;
+            font-size: 10px;
             text-align: right;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.8);
-            font-family: 'Google Sans', sans-serif;
+            line-height: 1.3;
+            color: #cccccc;
+            font-family: 'Inter', sans-serif;
             font-weight: 400;
         }
 
-        /* Table Styles - Doodle Design */
+        /* Table Styles - Mobile Layout */
         .table-container {
             width: 100%;
-            margin-top: 8px;
+            margin-top: 10px;
             overflow: hidden;
-            position: relative;
         }
 
         .distribution-table {
             width: 100%;
             table-layout: fixed;
             border-collapse: collapse;
-            font-size: 14px;
+            font-size: 13px; /* Mobile font size */
         }
 
         .distribution-table th:first-child,
         .distribution-table td:first-child {
-            width: 65%;
+            width: 60%;
         }
 
         .distribution-table th:last-child,
         .distribution-table td:last-child {
-            width: 35%;
+            width: 40%;
             text-align: right;
         }
 
         .distribution-table th {
             text-align: left;
-            padding: 16px 4px;
-            border-bottom: 3px solid #1e293b;
-            color: #1e293b;
-            font-weight: 700;
+            padding: 12px 6px;
+            border-bottom: 1px solid #444444;
+            color: #ffffff;
+            font-weight: 600;
             white-space: nowrap;
-            font-family: 'Google Sans', sans-serif;
-            font-size: 13px;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            position: relative;
-        }
-
-        .distribution-table th::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #f97316, #3b82f6, #ec4899);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.1px;
         }
 
         .distribution-table td {
-            padding: 16px 4px;
-            color: #1e293b;
-            border-bottom: 2px dashed #e2e8f0;
+            padding: 12px 6px;
+            color: #ffffff;
+            border-bottom: 1px solid #333333;
             vertical-align: middle;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Google Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
-        .distribution-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .distribution-table tbody tr:nth-child(odd) {
-            background: linear-gradient(90deg, rgba(251, 191, 36, 0.05) 0%, transparent 100%);
-        }
-
-        .distribution-table tbody tr:nth-child(even) {
-            background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
-        }
-
-        /* Asset Icon Styles - PRESERVED FROM ORIGINAL */
+        /* Asset Icon Styles - Mobile Optimized - NO HOVER EFFECTS */
         .asset-icon {
             display: inline-flex;
             align-items: center;
@@ -396,6 +235,7 @@
                 0 0 10px rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.25);
             flex-shrink: 0;
+            /* Removed all hover effects and animations */
         }
 
         .asset-icon img {
@@ -417,31 +257,31 @@
             flex-direction: column;
             min-width: 0;
             flex: 1;
-            margin-right: 12px;
+            margin-right: 10px;
         }
 
         .asset-ticker {
-            font-weight: 700;
-            color: #1e293b;
-            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 14px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Google Sans', sans-serif;
-            line-height: 1.3;
-            letter-spacing: -0.1px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+            letter-spacing: 0px;
         }
 
         .asset-name {
-            font-size: 11px;
-            color: #6b7280;
-            font-weight: 500;
+            font-size: 10px;
+            color: #999999;
+            font-weight: 400;
             margin-top: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Google Sans', sans-serif;
-            line-height: 1.3;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
         }
 
         .value-info {
@@ -453,53 +293,27 @@
         }
 
         .market-value {
-            color: #1e293b;
-            font-weight: 700;
+            color: #ffffff;
+            font-weight: 600;
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Google Sans', sans-serif;
-            font-size: 15px;
-            letter-spacing: -0.1px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0px;
         }
 
         .asset-balance {
-            font-size: 11px;
-            color: #6b7280;
-            font-weight: 500;
+            font-size: 10px;
+            color: #999999;
+            font-weight: 400;
             margin-top: 2px;
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Google Sans', sans-serif;
-        }
-
-        /* Doodle Decorative Elements */
-        .container::before {
-            content: '💰';
-            position: fixed;
-            top: 10%;
-            left: 5%;
-            font-size: 24px;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        .container::after {
-            content: '📈';
-            position: fixed;
-            bottom: 10%;
-            right: 5%;
-            font-size: 24px;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        /* Premium Touches - Doodle Style */
-        .distribution-table tbody tr {
-            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
 </style>
 <body>
@@ -511,9 +325,8 @@
         
         <!-- Top Row with Balance Card and Assets Table -->
         <div class="top-row">
-            <!-- Balance Card - Mastercard Style -->
+            <!-- Balance Card - ATM Style -->
             <div class="card balance-card">
-                <div class="card-hologram"></div>
                 <div class="card-brand">Total Balance</div>
                 <div class="total-assets-container">
                     <div class="total-assets" id="totalEquity">Rp. 0</div>
